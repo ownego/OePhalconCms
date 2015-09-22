@@ -1,0 +1,85 @@
+<style>
+	.role-list li {
+	  list-style:none;
+	}
+	
+	.acltree li{
+	  list-style:none;
+	}
+	
+	.acltree ul{
+	  display:none;
+	}
+	
+	.acltree .fa{
+	  cursor:pointer;
+	}
+	
+	.role-list a {
+	  font-size:18px;
+	  color:#333;
+	}
+	.role-list a.active{
+	  color:#3c8dbc;
+	}
+	.permission-content h2{
+	  margin-bottom:20px;
+	}
+	
+	.permission-content input[type='submit']{
+        margin-top:20px;
+	}
+</style>
+<div class="permission-content">
+<h2 class="col-md-12">
+    <?php echo $t->_('Change permission for '.$roleName);?>
+</h2>
+<ul class="col-md-2 role-list">
+    <?php foreach ($roleAll as $role) :?>
+    <li>
+        <a 
+            class="<?php if($roleID ==$role->getId()){echo 'active';}?>" 
+            href="/system/permission/index?role_id=<?php echo $role->getId();?>"><?php echo $role->getName();?></a>
+    </li>
+    <?php endforeach;?>
+</ul>
+<ul class="acltree treeview col-md-10">
+    <form action="/system/permission/update" method="post">
+	<?php foreach ($acl as $module => $controllers): ?>
+		<li>
+            <i class="fa icon-eblow-plus"></i>
+            <input
+		          <?php $checkedAllController= false;?>
+                  <?php if(isset($roleData[$module]) && count($roleData[$module]) == count($controllers)){$checkedAllController= true;echo "checked=checked";}?> 
+		          type="checkbox" name="data[<?php echo $module;?>]" class="input simple"/> 
+		          <span class="module"><?php echo $module ?></span>
+			<ul>
+				<?php foreach ($controllers as $controller => $actions): ?>
+					<li>
+					   <i class="fa icon-eblow-plus"></i>
+					   <input 
+					       <?php $checkedAllAction = false;?>
+					       <?php if($checkedAllController == true){echo "checked=checked"; $checkedAllAction = true;} 
+					               elseif(isset($roleData[$module][$controller]) && count($roleData[$module][$controller]) == count($actions)){$checkedAllAction= true;echo "checked=checked";}?>
+					       name="data[<?php echo $module;?>][<?php echo $controller;?>]" type="checkbox" class="input simple"/> 
+					       <span class="controller"><?php echo $controller ?></span>
+						<ul>
+							<?php foreach ($actions as $action): ?>
+								<li style="background: none">
+								    <input 
+								        <?php if($checkedAllAction == true){echo "checked=checked";} elseif(isset($roleData[$module][$controller][$action])){echo "checked=checked";}?> 
+								        name="data[<?php echo $module;?>][<?php echo $controller;?>][<?php echo $action;?>]" type="checkbox" class="input simple"/>
+								    <span class="action"><?php echo $action ?></span>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</li>
+	<?php endforeach; ?>
+	<input type="hidden" name="role_id" value="<?php echo $roleID;?>">
+	<input type="submit" value="<?php echo $t->_('Update permission');?>" class="btn btn-primary">
+	</form>
+</ul>
+</div>

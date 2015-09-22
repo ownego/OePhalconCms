@@ -1,0 +1,25 @@
+ul.menus {
+	padding:0px;
+	margin:0px;
+	margin-bottom:10px;
+}
+.menus li {
+	list-style:none;
+	display:inline-block;
+	padding:0px;
+	margin:0px;
+}
+
+.menus a {
+	color:#fff;
+	padding:6px 10px;
+	display:inline-block;
+	text-decoration:none;
+}
+
+.menus li {
+	background:#777;
+}
+.menus li.active {
+	background:#337ab7;
+}

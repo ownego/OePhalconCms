@@ -1,0 +1,26 @@
+{
+  "name": "OePhalcon",
+  "version": "0.0.1",
+  "authors": [
+    "hoannt <hoannt@ownego.com>"
+  ],
+  "description": "Base phalcon cms",
+  "main": "public\\skin\\common\\libs",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Phalcon"
+  ],
+  "license": "OE",
+  "private": true,
+  "dependencies": {
+    "jquery": "*",
+    "bootstrap": "~3.1.1",
+    "font-awesome": "*",
+    "jquery-ui-bootstrap": "~0.2.5",
+    "adminlte": "~1.2.1",
+    "ckeditor": "~4.4.6",
+    "bootstrap-chosen": "~1.0.0"
+  }
+}

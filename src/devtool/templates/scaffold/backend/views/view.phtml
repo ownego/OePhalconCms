@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="oe-toptool">
+    		<?php echo Phalcon\Tag::linkTo(array("/backend/$plural$/index", '<i class="fa fa-mail-reply"></i> '. $t->_('Back To List'), 'class' => 'btn btn-primary')); ?>
+    	</div>
+	</div>
+	<div class="col-sm-4">
+		<?php $detailview->run()->render(); ?>
+	</div>
+</div>

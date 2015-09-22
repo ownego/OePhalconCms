@@ -1,0 +1,14 @@
+# eclipse ide
+.buildpath
+.project
+.settings/
+.idea
+*.log
+
+# bower
+src/public/skin/common/libs
+src/public/index.php
+
+
+# languages
+src/app/languages/*.php

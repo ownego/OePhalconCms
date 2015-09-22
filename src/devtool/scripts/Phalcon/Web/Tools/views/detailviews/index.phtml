@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ */
+
+?>
+<?php echo $this->getContent() ?>
+
+<h1>Generate Detail Views</h1>
+
+<form method="post" autocomplete="off" class="form-horizontal" action="<?php echo $this->url->get("webtools.php?_url=/detailviews/create") ?>">
+
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>    
+            <td><b>Schema</b></td>
+            <td><?php echo $this->tag->textField(array('schema', 'value' => $databaseName)) ?></td>
+        </tr>
+        <tr>
+            <td><b>Table name</b></td>
+            <td><i><?php echo $this->tag->selectStatic('tableName', $tables) ?></i></td>
+        </tr>
+        
+        <tr>
+            <td><b>Module</b></td>
+            <td><i><?php echo $this->tag->selectStatic('module', $modules) ?></i></td>
+        </tr>
+        
+        <tr>
+            <td><b>Namespace</b></td>
+            <td><i><?php echo $this->tag->textField(array('namespace', 'value' => 'App\Modules\Backend\DetailViews')) ?></i></td>
+        </tr>
+        
+        <tr>
+            <td><b>Model namespace</b></td>
+            <td><i><?php echo $this->tag->textField(array('modelsNamespace', 'value' => 'App\Modules\Backend\Models')) ?></i></td>
+        </tr>
+        
+        <tr>
+            <td><b>Force</b></td>
+            <td><i><input type="checkbox" name="force" value="1"/></i></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div align="right">
+                    <input type="submit" class="btn btn-primary" value="Generate"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
