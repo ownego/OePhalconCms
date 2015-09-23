@@ -64,11 +64,11 @@ class Assets extends Plugin {
 				'type' => 'js'
 			),
             array(
-                'uri' => '/skin/common/libs/adminlte/js/plugins/daterangepicker/daterangepicker.js',
+                'uri' => '/skin/common/libs/adminlte/plugins/daterangepicker/daterangepicker.js',
                 'type' => 'js'
             ),
             array(
-                'uri' => '/skin/common/libs/adminlte/js/plugins/fullcalendar/fullcalendar.min.js',
+                'uri' => '/skin/common/libs/adminlte/plugins/fullcalendar/fullcalendar.min.js',
                 'type' => 'js'
             ),
 		));
@@ -91,32 +91,38 @@ class Assets extends Plugin {
 				'uri' => '/skin/common/libs/jquery-ui-bootstrap/jquery.ui.theme.css',
 				'type' => 'css'
 			),
-			array(
-				'uri' => '/skin/common/libs/adminlte/css/ionicons.min.css',
+		    
+		    // Adminlte
+		    array(
+				'uri' => 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/morris/morris.css',
+				'uri' => '/skin/common/libs/adminlte/dist/css/AdminLTE.min.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/jvectormap/jquery-jvectormap-1.2.2.css',
+				'uri' => '/skin/common/libs/adminlte/dist/css/skins/_all-skins.min.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/fullcalendar/fullcalendar.css',
+				'uri' => '/skin/common/libs/adminlte/plugins/morris/morris.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/daterangepicker/daterangepicker-bs3.css',
+				'uri' => '/skin/common/libs/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
+				'uri' => '/skin/common/libs/adminlte/plugins/fullcalendar/fullcalendar.css',
 				'type' => 'css'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/css/AdminLTE.css',
+				'uri' => '/skin/common/libs/adminlte/plugins/daterangepicker/daterangepicker-bs3.css',
+				'type' => 'css'
+			),
+			array(
+				'uri' => '/skin/common/libs/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
 				'type' => 'css'
 			),
 			array(
@@ -163,43 +169,47 @@ class Assets extends Plugin {
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/morris/morris.min.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/morris/morris.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/sparkline/jquery.sparkline.min.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/sparkline/jquery.sparkline.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+				'type' => 'js'
+			),
+// 			array(
+// 				'uri' => '/skin/common/libs/adminlte/plugins/fullcalendar/fullcalendar.min.js',
+// 				'type' => 'js'
+// 			),
+// 			array(
+// 				'uri' => '/skin/common/libs/adminlte/plugins/jqueryKnob/jquery.knob.js',
+// 				'type' => 'js'
+// 			),
+			array(
+				'uri' => '/skin/common/libs/adminlte/plugins/daterangepicker/daterangepicker.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/fullcalendar/fullcalendar.min.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/jqueryKnob/jquery.knob.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/iCheck/icheck.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/daterangepicker/daterangepicker.js',
+				'uri' => '/skin/common/libs/adminlte/plugins/slimScroll/jquery.slimscroll.min.js',
 				'type' => 'js'
 			),
 			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
-				'type' => 'js'
-			),
-			array(
-				'uri' => '/skin/common/libs/adminlte/js/plugins/iCheck/icheck.min.js',
-				'type' => 'js'
-			),
-			array(
-				'uri' => '/skin/common/libs/adminlte/js/AdminLTE/app.js',
+				'uri' => '/skin/common/libs/adminlte/dist/js/app.min.js',
 				'type' => 'js'
 			),
 			array(

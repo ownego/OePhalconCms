@@ -13,21 +13,17 @@ $collapsed = $this->request->get('view-mode') == 'full' ? true : $collapsed;
         <?php echo $this->assets->outputJs(); ?>
         <script> var baseUri = '<?php echo $this->url->getBaseUri(); ?>' </script>
     </head>
-    <body class="skin-black fixed">
-        <!-- header logo: style can be found in header.less -->
-        <header class="header">
-            <?php echo $this->partial($layoutDir . '/partials/header'); ?>
-        </header>
-        
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas <?php if($collapsed) echo 'collapse-left'; ?>">
+    <body class="skin-blue sidebar-mini">
+        <div class="wrapper">
+            <header class="main-header">
+                <?php echo $this->partial($layoutDir . '/partials/header'); ?>
+            </header>
+    
+            <aside class="main-sidebar <?php if($collapsed) echo 'collapse-left'; ?>">
 	            <?php echo $this->partial($layoutDir . '/partials/aside'); ?>
             </aside>
-
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side <?php if($collapsed) echo 'strech'; ?>">
-                <!-- Content Header (Page header) -->
+            
+            <div class="content-wrapper">
                 <section class="content-header">
                     <h1><?php echo $pageTitle ?></h1>
                     <?php echo $this->partial($layoutDir . '/partials/breadcrumb'); ?>
@@ -42,9 +38,9 @@ $collapsed = $this->request->get('view-mode') == 'full' ? true : $collapsed;
                 <section class="content">
                 	<?php echo $this->getContent(); ?>
 				</section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
-
-        <?php echo $this->partial($layoutDir . '/partials/footer'); ?>
+            </div><!-- ./wrapper -->
+    
+            <?php echo $this->partial($layoutDir . '/partials/footer'); ?>
+        </div>
     </body>
 </html>
