@@ -13,7 +13,7 @@ $collapsed = $this->request->get('view-mode') == 'full' ? true : $collapsed;
         <?php echo $this->assets->outputJs(); ?>
         <script> var baseUri = '<?php echo $this->url->getBaseUri(); ?>' </script>
     </head>
-    <body class="skin-blue sidebar-mini">
+    <body class="skin-blue sidebar-mini <?php if($collapsed) echo 'sidebar-collapse'; ?>">
         <div class="wrapper">
             <header class="main-header">
                 <?php echo $this->partial($layoutDir . '/partials/header'); ?>

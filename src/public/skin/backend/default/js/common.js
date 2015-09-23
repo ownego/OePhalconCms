@@ -2,9 +2,8 @@
 
 $(function() {
 	
-	$(document).on('click', '.navbar-static-top .navbar-btn', function() {
-		var $leftbar = $('.wrapper .left-side');
-		var collapsed = $leftbar.hasClass('collapse-left') ? 1 : 0;
+	$(document).on('click', '.navbar-static-top .sidebar-toggle', function() {
+		var collapsed = $('body').hasClass('sidebar-collapse') ? 1 : 0;
 		$.post(baseUri + '/backend/index/setLeftbarCollapse', {collapsed:collapsed});
 	});
 	

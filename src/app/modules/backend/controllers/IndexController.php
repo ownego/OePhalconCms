@@ -42,6 +42,7 @@ class IndexController extends BaseController {
 	 */
 	public function setLeftbarCollapseAction() {
 		$this->session->set('collapsed', (int)$this->request->get('collapsed'));
+		$this->debugdie($this->request->get('collapsed'));
 		$this->view->disable();
 	}
 }
