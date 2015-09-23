@@ -456,3 +456,6 @@ body.skin-black > .header .navbar {
 #formPaymentPeriodHidden input{
 	display: none;
 }
+.oe-toptool {
+	margin: 20px 0;
+}

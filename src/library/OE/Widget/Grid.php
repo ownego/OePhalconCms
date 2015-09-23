@@ -236,10 +236,6 @@ class Grid extends Base {
 	protected function _getContent() {
 		$content = $this->renderTable();
 		$content .= $this->renderHiddenInput();
-		if(!$this->disablePagination) {
-			$content .= $this->renderPaginator();
-			$content .= $this->renderPageSize();
-		}
 		
 		$html = $this->renderTopTool();
 		$html .= sprintf('<div class="oe-grid-content">%s</div>', $content);
@@ -267,6 +263,10 @@ class Grid extends Base {
 	 */
 	public function renderTopTool() {
 		$html = '<div class="oe-grid-toptool">';
+		if(!$this->disablePagination) {
+		    $html .= $this->renderPaginator();
+		    $html .= $this->renderPageSize();
+		}
 		if(!$this->disableExport) {
 			$html .= $this->renderExportBox();
 		}

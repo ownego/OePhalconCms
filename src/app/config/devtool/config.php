@@ -6,7 +6,7 @@ return new \Phalcon\Config(array(
         'host'        => 'localhost',
         'username'    => 'root',
         'password'    => '',
-        'dbname'      => 'anime',
+        'dbname'      => 'oe_phalcon_cms',
     ),
     'application' => array(
         'controllersDir' => array(
