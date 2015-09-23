@@ -39,6 +39,13 @@ $collapsed = $this->request->get('view-mode') == 'full' ? true : $collapsed;
                 	<?php echo $this->getContent(); ?>
 				</section><!-- /.content -->
             </div><!-- ./wrapper -->
+            
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                  <b>Version</b> 0.0.1
+                </div>
+                <strong>Copyright &copy; 2014-2015 <a href="http://ownego.com/oephalconcms">OePhalconCms</a>.</strong> All rights reserved.
+            </footer>
     
             <?php echo $this->partial($layoutDir . '/partials/footer'); ?>
         </div>
