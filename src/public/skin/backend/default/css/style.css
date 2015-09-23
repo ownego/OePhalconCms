@@ -168,7 +168,7 @@ body.skin-black > .header .navbar {
 }
 .content .oe-detailview,
 .content .oe-form {
-	margin-top: 20px;
+	margin-top: 0px;
 }
 .content .oe-detailview table tr:first-child th,
 .content .oe-detailview table tr:first-child td {
