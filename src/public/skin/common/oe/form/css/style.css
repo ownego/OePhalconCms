@@ -2,6 +2,8 @@
 
 .oe-form {
 	padding: 5px;
+	background-color: #fff;
+    overflow: hidden;
 }
 .message-error {
 	display: block;
@@ -13,6 +15,9 @@
 }
 .message-error:first-letter {
 	text-transform: uppercase;
+}
+.box-footer.form-buttons {
+	margin: 0;
 }
 .box-footer .btn {
 	margin-right: 5px;
