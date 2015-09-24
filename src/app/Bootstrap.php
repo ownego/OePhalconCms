@@ -26,7 +26,7 @@ class Bootstrap extends \OE\Application\Bootstrap {
 		$di = $this->_di;
 		$config = $this->_configs;
 		
-		if ( ! $di->get('session')->has('language')) {
+		if (!$di->get('session')->has('language')) {
 			$di->get('session')->set('language', 'en');
 			$di->get('session')->set('locale', 'en');
 		}
@@ -41,6 +41,11 @@ class Bootstrap extends \OE\Application\Bootstrap {
 		$translate = new \Phalcon\Translate\Adapter\NativeArray(array("content" => $messages));
 				
 		$di->set('i18n', $translate);
+	}
+	
+	public function _initNavigation() {
+		$navigation = require_once APP_PATH. '/config/'. APP_ENV .'/navigation.php';
+		
 	}
 	
 	public function _initCache() {}

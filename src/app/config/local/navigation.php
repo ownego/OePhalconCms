@@ -1,7 +1,6 @@
 <?php
-
-$navigationConfig = array(
-    'main-menu-backend'=> array(
+return array(
+    'backend'=> array(
         array(
             'label' => 'Dashboard',
             'module' => 'backend',

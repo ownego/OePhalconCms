@@ -105,14 +105,26 @@ class Grid extends Base {
 		
 		if(isset($params[$this->name])) {
 			$this->params = $params[$this->name];
+			$_SESSION['gridParams_'.$this->name] = $this->params;
+		} else {
+		    $this->params = $_SESSION['gridParams_'.$this->name];			
 		}
+		
 		if(isset($params['opt'])) {
 			$this->operators = $params['opt'];
+			$_SESSION['gridOpt_'.$this->name] = $this->operators;
+		} else {
+			$this->operators = $_SESSION['gridOpt_'.$this->name];			
 		}
+		
 		if(!empty($this->params['clearPaginator'])) {
 			$this->clearPaginator = true;
 		}
-		if(!$this->disableExport && $this->request->isAjax() == false && $this->request->get('export') == true) {
+		
+		if(!$this->disableExport 
+		  && $this->request->isAjax() == false 
+		  && $this->request->get('export') == true) 
+		{
 			$this->exporting = true;
 			$this->disablePagination = true;
 		}

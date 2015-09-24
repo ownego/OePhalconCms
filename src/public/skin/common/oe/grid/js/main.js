@@ -52,6 +52,7 @@
 		if($filtering.length) {
 			$filtering.removeClass("oe-filtering");
 			$filtering.val("");
+			$form.find("input[name$='[clearPaginator]']").val(1);
 			$form.submitForm();
 		}
 	};
@@ -118,11 +119,15 @@
 		$form.submit();
 	};
 	
-	$.fn.submitForm = function() {
+	$.fn.submitForm = function(clearPaginator) {
 		var $t = this
 			,isAjax = $t.hasClass('oe-grid-form-ajax') ? true : false;
 		
 		$t.addClass('loading');
+		
+		if(clearPaginator) {
+			$t.find("input[name$='[clearPaginator]']").val(1);
+		}
 		
 		if(isAjax) {
 			var action = $t.attr('action');
@@ -182,22 +187,22 @@ $(function() {
 	})
 	.on('click', '.oe-btn-filter', function() {
 		var $form = $(this).closest(".oe-grid-form");
-		$form.submitForm();
+		$form.submitForm(true);
 	})
 	.on('blur', '.oe-filter input.form-control:not(.datepicker)', function() {
 		if($(this).val()) {
 			var $form = $(this).closest(".oe-grid-form");
-			$form.submitForm();			
+			$form.submitForm(true);
 		}
 	})
 	.on('change', '.oe-filter select.form-control', function() {
 		var $form = $(this).closest(".oe-grid-form");
-		$form.submitForm();
+		$form.submitForm(true);
 	})
 	.on('click', '.oe-filter .clear-filter', function() {
 		$(this).parent('.oe-filter').children('.form-control').val('');
 		var $form = $(this).closest(".oe-grid-form");
-		$form.submitForm();
+		$form.submitForm(true);
 	});	
 	
 });
