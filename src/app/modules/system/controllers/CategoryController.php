@@ -1,10 +1,10 @@
 <?php
- 
+namespace App\Modules\System\Controllers;
 
-use App\Modules\system\Models\Category;
-use App\Modules\system\Grids\CategoryGrid;
-use App\Modules\system\Forms\CategoryForm;
-use App\Modules\system\DetailViews\CategoryDetailView;
+use App\Modules\System\Models\Category;
+use App\Modules\System\Grids\CategoryGrid;
+use App\Modules\System\Forms\CategoryForm;
+use App\Modules\System\DetailViews\CategoryDetailView;
 
 class CategoryController extends BaseController {
 

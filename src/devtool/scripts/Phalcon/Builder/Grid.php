@@ -205,7 +205,7 @@ class Grid extends Component
         $uses = array();
 		$uses[] = 'use OE\Widget\Grid;';
 		$uses[] = 'use '. $this->_options['modelsNamespace'].'\\'. $this->_options['className'].';';
-		$uses[] = 'use App\Modules\Backend\Grids\Elements\ActionLink;';
+		$uses[] = 'use App\Grids\Elements\ActionLink;';
 		$uses[] = 'use OE\Widget\Grid\Filter\DateRange;';
         
         $adapterName = 'Phalcon\Db\Adapter\Pdo\\' . $adapter;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Backend\Forms\Groups;
+namespace App\Forms\Groups;
 
 use OE\Widget\Form\Group;
 use OE\Widget\Form\Element\Button;
@@ -7,13 +7,17 @@ use OE\Widget\Form\Element\Button;
 class BoxFooter extends Group {
 	
     public $options = array();
-        
+
     public function __construct($options = array()) {
         $this->options = $options;
                 
         parent::__construct();
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \OE\Widget\Form\Group::init()
+     */
 	public function init() {
 		$this->setName('box-footer');
 		
@@ -25,6 +29,11 @@ class BoxFooter extends Group {
 		$this->setAttributes(array('class' => 'box-footer form-buttons col-md-12'));
 	}
 	
+	/**
+	 * Get elements
+	 * 
+	 * @return multitype:\OE\Widget\Form\Element\Button
+	 */
 	protected function _getElements() {
 		$submit = new Button('save');
 		$submit->setLabel(_('Save'));
@@ -37,6 +46,5 @@ class BoxFooter extends Group {
 		$reset->addClass('btn btn-warning');
 		
 		return array($submit, $reset);
-	} 
-	
+	}
 }

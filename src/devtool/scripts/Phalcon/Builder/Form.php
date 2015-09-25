@@ -210,7 +210,7 @@ class Form extends Component
 		$uses[] = 'use Phalcon\Validation\Validator\PresenceOf;';
 		$uses[] = 'use Phalcon\Validation\Validator\StringLength;';
 		$uses[] = 'use Phalcon\Validation\Validator\Email as EmailValidator;';
-		$uses[] = 'use App\Modules\Backend\Forms\Groups\BoxFooter;';
+		$uses[] = 'use App\Forms\Groups\BoxFooter;';
 		$uses[] = 'use '. $this->_options['modelsNamespace'].'\\'. $this->_options['className'].';';
 		
         $adapterName = 'Phalcon\Db\Adapter\Pdo\\' . $adapter;

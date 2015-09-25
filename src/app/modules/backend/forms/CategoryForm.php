@@ -1,4 +1,5 @@
-<?php  		
+<?php
+        		
 namespace App\Modules\Backend\Forms;
 
 use OE\Widget\Form;
@@ -11,7 +12,7 @@ use OE\Widget\Form\Element\Textarea;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Email as EmailValidator;
-use App\Modules\Backend\Forms\Groups\BoxFooter;
+use App\Forms\Groups\BoxFooter;
 use App\Modules\Backend\Models\Category;
 
 class CategoryForm extends Form {

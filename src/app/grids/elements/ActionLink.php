@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Backend\Grids\Elements;
+namespace App\Grids\Elements;
 
 use OE\Object;
 use Phalcon\Tag;

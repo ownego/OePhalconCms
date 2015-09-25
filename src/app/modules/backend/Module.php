@@ -3,6 +3,7 @@
 namespace App\Modules\Backend;
 
 use App\Plugins\Security;
+use Phalcon\Mvc\Router\Annotations;
 class Module extends \OE\Application\Module {
 	
 	public function __construct() {
@@ -36,5 +37,11 @@ class Module extends \OE\Application\Module {
 			
 			return $dispatcher;
 		});
+		
+// 		$di->set('router', function() {
+// 		     $router = new \Phalcon\Mvc\Router\Annotations(false);
+//              $router->addModuleResource('backend', 'Post', '/backend/post');
+//              return $router;
+// 		});
 	}
 }

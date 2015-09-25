@@ -4,7 +4,7 @@ namespace App\Modules\Backend\Grids;
 
 use OE\Widget\Grid;
 use App\Modules\Backend\Models\Post;
-use App\Modules\Backend\Grids\Elements\ActionLink;
+use App\Grids\Elements\ActionLink;
 use OE\Widget\Grid\Filter\DateRange;
 
 class PostGrid extends Grid {

@@ -1,5 +1,5 @@
-<?php		
-
+<?php
+        		
 namespace App\Modules\Backend\DetailViews;
 
 use OE\Widget\DetailView;

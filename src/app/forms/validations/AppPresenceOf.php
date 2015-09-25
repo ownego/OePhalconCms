@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Backend\Forms\Validations;
+namespace App\Forms\Validations;
 
 use Phalcon\Validation\Validator\PresenceOf;
 use App\Helpers\Translate;

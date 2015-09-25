@@ -1,6 +1,6 @@
 <?php
         		        		
-namespace App\Modules\system\Models;
+namespace App\Modules\System\Models;
 
 use App\Models\Category as CategoryBase;
 use App\Helpers\Translate;

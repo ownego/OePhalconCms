@@ -14,6 +14,7 @@ class AuthController extends BaseController {
     }
 
     public function loginAction() {
+        die('1');
     	if($this->session->get('auth')) {
     		return $this->response->redirect('/backend/index/index');
     	}    	
@@ -28,7 +29,7 @@ class AuthController extends BaseController {
 	            $password = Common::hash($password);
 	            $language = $form->getValue('language');
 	            
-// 	            $this->debugdie($form->getValues());
+	            $this->debugdie($form->getValues());
 	            
 	            $admin = Admin::findFirst(array(
 	                "username = :username: AND password = :password: AND status = 1",

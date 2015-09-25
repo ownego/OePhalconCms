@@ -4,6 +4,8 @@ class Bootstrap extends \OE\Application\Bootstrap {
 	public function _initNamespace() {
 		$this->_loader->registerNamespaces(array(
             'App\Models' => APP_PATH . '/models/',
+            'App\Grids' => APP_PATH . '/grids/',
+            'App\Forms' => APP_PATH . '/forms/',
             'App\Plugins' => APP_PATH . '/plugins/',				
             'App\Helpers' => APP_PATH . '/helpers/',				
             'App\Components' => APP_PATH . '/components/',

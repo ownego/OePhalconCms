@@ -11,7 +11,7 @@ $application['baseUri'] = $config['baseUri'];
 
 foreach($config['modules'] as $moduleName => $class) {
     $varPath = APP_PATH . "/modules/$moduleName/%s/";
-    $varNamespace = "App\Modules\\$moduleName\%s";
+    $varNamespace = "App\Modules\\". ucfirst($moduleName) ."\%s";
     
     $application['controllersDir'][$moduleName] = sprintf($varPath, 'controllers');
     $application['modelsDir'][$moduleName] = sprintf($varPath, 'models');

@@ -12,7 +12,7 @@ use OE\Widget\Form\Element\Textarea;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Email as EmailValidator;
-use App\Modules\Backend\Forms\Groups\BoxFooter;
+use App\Forms\Groups\BoxFooter;
 use App\Modules\Backend\Models\Post;
 
 class PostForm extends Form {

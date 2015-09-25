@@ -10,6 +10,7 @@ namespace OE;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Router\Annotations;
 
 class Application extends \Phalcon\Mvc\Application {
 	
@@ -205,14 +206,20 @@ class Application extends \Phalcon\Mvc\Application {
 		
 		// Router service
 		$di->set('router', function() use($configs) {
-			$router = new \Phalcon\Mvc\Router();
-			$router->setDefaultModule($configs->defaultModule);
-			$routers = $configs->routers;
-			foreach ($routers as $r) {
-				$router
-				->add($r->pattern, $r->paths->toArray(), $r->httpMethods)
-				->setName($r->name);
-			}
+			//$router = new \Phalcon\Mvc\Router();
+			
+			$router = new Annotations(false);
+			$router->addModuleResource('backend', 'Post');
+			
+// 			$router->addModuleResource('backend', 'Post', '/backend/post');
+			
+// 			$router->setDefaultModule($configs->defaultModule);
+// 			$routers = $configs->routers;
+// 			foreach ($routers as $r) {
+// 				$router
+// 				->add($r->pattern, $r->paths->toArray(), $r->httpMethods)
+// 				->setName($r->name);
+// 			}
 			return $router;
 		});
 		

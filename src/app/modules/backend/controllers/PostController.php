@@ -6,11 +6,15 @@ use App\Modules\Backend\Grids\PostGrid;
 use App\Modules\Backend\Forms\PostForm;
 use App\Modules\Backend\DetailViews\PostDetailView;
 
+/**
+ * @RoutePrefix("/backend/post")
+ */
 class PostController extends BaseController {
 
     /**
      * Index action
      *     list of items
+     * @Get("/")     
      */
     public function indexAction() {
         $this->pageTitle = $this->_("Post management");
