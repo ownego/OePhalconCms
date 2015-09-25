@@ -13,12 +13,12 @@ return array(
 	),
 	'modules' => array(
 		'backend' => array(
-				'className' => 'App\Modules\Backend\Module',
-				'path' =>  APP_PATH . '/modules/backend/Module.php',
+			'className' => 'App\Modules\Backend\Module',
+			'path' =>  APP_PATH . '/modules/backend/Module.php',
 		),
 		'system' => array(
-				'className' => 'App\Modules\System\Module',
-				'path' =>  APP_PATH . '/modules/system/Module.php',
+			'className' => 'App\Modules\System\Module',
+			'path' =>  APP_PATH . '/modules/system/Module.php',
 		)
 	),
 	'cache' => array (

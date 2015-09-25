@@ -29,13 +29,13 @@
 	</thead>
 	<tbody>
 	<?php
-		$iterator = new DirectoryIterator($gridsDir[$curModule]);
+		$iterator = new DirectoryIterator($detailViewsDir[$curModule]);
 		foreach($iterator as $fileinfo){
-			if(!$fileinfo->isDot()){
+			if(!$fileinfo->isDot() && !$fileinfo->isDir()){
 				echo '<tr>
 					<td>', $fileinfo->getFileName(), '</td>
 					<td>', $fileinfo->getSize(), '</td>
-					<td><a href="', $this->url->get("webtools.php?_url=/detailviews/edit/".$fileinfo->getFileName()), '"
+					<td><a href="', $this->url->get("webtools.php?_url=/detailviews/edit/".$fileinfo->getFileName().'&module='.$curModule), '"
 					    class"="btn">Edit</a></td>
 				</tr>';
 			}

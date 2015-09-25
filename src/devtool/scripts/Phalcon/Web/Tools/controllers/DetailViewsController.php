@@ -31,7 +31,7 @@ class DetailViewsController extends ControllerBase
         $this->listTables(true);
         $modules = array();
         $config = Tools::getConfig();
-        foreach($config->application->detailviewsDir as $model => $path) {
+        foreach($config->application->detailViewsDir as $model => $path) {
             $modules[$model] = $model;
         }
         $this->view->setVar('modules', $modules);
@@ -49,15 +49,17 @@ class DetailViewsController extends ControllerBase
             $schema = $this->request->getPost('schema');
             $tableName = $this->request->getPost('tableName');
             $module = $this->request->getPost('module', 'string');
-            $namespace = $this->request->getPost('namespace', 'string');
-            $modelsNamespace = $this->request->getPost('modelsNamespace', 'string');
-
+            
+            $config = Tools::getConfig();
+            $namespace = $config->application->detailViewsNamespace[$module];
+            $modelsNamespace = $config->application->modelsNamespace[$module];
+            
             try {
             	
                 $detailviewsBuilder = new DetailView(array(
                     'name'                  => $tableName,
                     'force'                 => $force,
-                    'detailviewsDir'        => Tools::getConfig()->application->detailviewsDir[$module],
+                    'detailViewsDir'        => Tools::getConfig()->application->detailViewsDir[$module],
                     'directory'             => null,
                     'namespace'             => $namespace,
                     'modelsNamespace'       => $modelsNamespace,
@@ -65,6 +67,8 @@ class DetailViewsController extends ControllerBase
                 ));
                 
                 $detailviewsBuilder->build();
+                
+                $this->flash->success('DetailView for table "'.$tableName.'" was generated successfully');
 
             } catch (BuilderException $e) {
                 $this->flash->error($e->getMessage());
@@ -81,25 +85,24 @@ class DetailViewsController extends ControllerBase
     {
         $modules = array();
         $config = Tools::getConfig();
-        foreach($config->application->detailviewsDir as $module => $path) {
+        foreach($config->application->detailViewsDir as $module => $path) {
             $modules[$module] = $module;
         }
         $curModule = $this->request->get('module', 'string') ? $this->request->get('module', 'string') : array_shift(array_slice($modules, 0, 1));
         
-        $this->view->setVar('detailviewsDir', Tools::getConfig()->application->detailviewsDir);
+        $this->view->setVar('detailViewsDir', Tools::getConfig()->application->detailViewsDir);
         $this->view->setVar('modules', $modules);
         $this->view->setVar('curModule', $curModule);
-        
     }
 
     public function editAction($fileName)
     {
-
         $fileName = str_replace('..', '', $fileName);
 
-        $detailviewsDir = Tools::getConfig()->application->detailviewsDir;
+        $curModule = $this->request->get('module', 'string');
+        $detailViewsDir = Tools::getConfig()->application->detailViewsDir[$curModule];
 
-        if (!file_exists($detailviewsDir.'/'.$fileName)) {
+        if (!file_exists($detailViewsDir.'/'.$fileName)) {
             $this->flash->error('Model could not be found');
 
             return $this->dispatcher->forward(array(
@@ -108,10 +111,10 @@ class DetailViewsController extends ControllerBase
             ));
         }
 
-        $this->tag->setDefault('code', file_get_contents($detailviewsDir.'/'.$fileName));
+        $this->tag->setDefault('code', file_get_contents($detailViewsDir.'/'.$fileName));
         $this->tag->setDefault('name', $fileName);
+        $this->tag->setDefault('curModule', $curModule);
         $this->view->setVar('name', $fileName);
-
     }
 
     public function saveAction()
@@ -120,11 +123,12 @@ class DetailViewsController extends ControllerBase
         if ($this->request->isPost()) {
 
             $fileName = $this->request->getPost('name', 'string');
-
             $fileName = str_replace('..', '', $fileName);
 
-            $detailviewsDir = Tools::getConfig()->application->detailviewsDir;
-            if (!file_exists($detailviewsDir.'/'.$fileName)) {
+            $curModule = $this->request->get('curModule', 'string');
+            $detailViewsDir = Tools::getConfig()->application->detailViewsDir[$curModule];
+        
+            if (!file_exists($detailViewsDir.'/'.$fileName)) {
                 $this->flash->error('Model could not be found');
 
                 return $this->dispatcher->forward(array(
@@ -133,7 +137,7 @@ class DetailViewsController extends ControllerBase
                 ));
             }
 
-            if (!is_writable($detailviewsDir.'/'.$fileName)) {
+            if (!is_writable($detailViewsDir.'/'.$fileName)) {
                 $this->flash->error('Model file does not has write access');
 
                 return $this->dispatcher->forward(array(
@@ -142,7 +146,7 @@ class DetailViewsController extends ControllerBase
                 ));
             }
 
-            file_put_contents($detailviewsDir.'/'.$fileName, $this->request->getPost('code'));
+            file_put_contents($detailViewsDir.'/'.$fileName, $this->request->getPost('code'));
 
             $this->flash->success('The model "'.$fileName.'" was saved successfully');
         }

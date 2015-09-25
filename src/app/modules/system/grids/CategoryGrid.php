@@ -1,8 +1,9 @@
 <?php
-namespace App\Modules\Backend\Grids;
+        		
+namespace App\Modules\system\Grids;
 
 use OE\Widget\Grid;
-use App\Modules\Backend\Models\Category;
+use App\Modules\system\Models\Category;
 use App\Modules\Backend\Grids\Elements\ActionLink;
 use OE\Widget\Grid\Filter\DateRange;
 
@@ -130,4 +131,5 @@ class CategoryGrid extends Grid {
 				)
 		);
 	}
+
 }

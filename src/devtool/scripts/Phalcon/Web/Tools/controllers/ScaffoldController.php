@@ -63,10 +63,12 @@ class ScaffoldController extends ControllerBase
             $genSettersGetters = $this->request->getPost('genSettersGetters', 'int');
             $module = $this->request->getPost('module', 'string');
             $form = $this->request->getPost('form', 'string');
-            $controllersNamespace = $this->request->getPost('controllersNamespace', 'string');
-            $modelsNamespace = $this->request->getPost('modelsNamespace', 'string');
-            $gridsNamespace = $this->request->getPost('gridsNamespace', 'string');
-            $formsNamespace = $this->request->getPost('formsNamespace', 'string');
+            
+            $config = Tools::getConfig();
+            $controllersNamespace = $config->application->controllersNamespace[$module];
+            $modelsNamespace = $config->application->modelsNamespace[$module];
+            $gridsNamespace = $config->application->gridsNamespace[$module];
+            $formsNamespace = $config->application->formsNamespace[$module];
 
             try {
 

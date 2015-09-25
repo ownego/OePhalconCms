@@ -36,14 +36,14 @@ class CodeMirror
      */
     public static function importResources()
     {
-        echo Tag::javascriptInclude('js/codemirror/lib/codemirror.js');
-        echo Tag::javascriptInclude('js/codemirror/mode/clike/clike.js');
-        echo Tag::javascriptInclude('js/codemirror/mode/xml/xml.js');
-        echo Tag::javascriptInclude('js/codemirror/mode/css/css.js');
-        echo Tag::javascriptInclude('js/codemirror/mode/php/php.js');
-        echo Tag::javascriptInclude('js/codemirror/lib/codephalcon.js');
-        echo Tag::stylesheetLink('css/codemirror/codemirror.css');
-        echo Tag::stylesheetLink('css/codemirror/codephalcon.css');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/lib/codemirror.js');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/mode/clike/clike.js');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/mode/xml/xml.js');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/mode/css/css.js');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/mode/php/php.js');
+        echo Tag::javascriptInclude('/devtool/resources/codemirror/lib/codephalcon.js');
+        echo Tag::stylesheetLink('/devtool/resources/codemirror/lib/codemirror.css');
+        echo Tag::stylesheetLink('/devtool/resources/codemirror/lib/codephalcon.css');
     }
 
     /**
@@ -56,8 +56,8 @@ class CodeMirror
     {
         // Set paths
         $codemirror = realpath(__DIR__ . '/../../../') . '/resources/codemirror';
-        $js = $path . 'public/js/codemirror';
-        $css = $path . 'public/css/codemirror';
+        $js = $path . 'public/devtool/resources/codemirror';
+        $css = $path . 'public/devtool/resources/codemirror';
 
         // Install bootstrap
         if ( ! is_dir($js)) {

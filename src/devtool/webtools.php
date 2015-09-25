@@ -20,7 +20,7 @@
 
 use Phalcon\Web\Tools;
 
-require 'config.php';
+//require 'config.php';
 require PTOOLSPATH . '/scripts/Phalcon/Web/Tools.php';
 
 Tools::main(PTOOLSPATH, PTOOLS_IP);

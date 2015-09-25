@@ -132,23 +132,23 @@ class DetailView extends Component
         $config = $this->_getConfig($path);
         
         if (!isset($this->_options['modelsDir'][$this->_options['module']])) {
-            if (!isset($config->application->detailviewsDir[$this->_options['module']])) {
+            if (!isset($config->application->detailViewsDir[$this->_options['module']])) {
                 throw new BuilderException(
                     "Builder doesn't knows where is the models directory"
                 );
             }
-            $detailviewsDir = $config->application->detailviewsDir[$this->_options['module']];
+            $detailViewsDir = $config->application->detailViewsDir[$this->_options['module']];
             
         } else {
-            $detailviewsDir = $this->_options['modelsDir'];
+            $detailViewsDir = $this->_options['modelsDir'];
         }            
         
-        $detailviewsDir = rtrim(rtrim($detailviewsDir, '/'), '\\') . DIRECTORY_SEPARATOR;             
+        $detailViewsDir = rtrim(rtrim($detailViewsDir, '/'), '\\') . DIRECTORY_SEPARATOR;             
         
-        if ($this->isAbsolutePath($detailviewsDir) == false) {
-            $detailviewPath = $path . DIRECTORY_SEPARATOR . $detailviewsDir;
+        if ($this->isAbsolutePath($detailViewsDir) == false) {
+            $detailviewPath = $path . DIRECTORY_SEPARATOR . $detailViewsDir;
         } else {
-            $detailviewPath = $detailviewsDir;
+            $detailviewPath = $detailViewsDir;
         }                           
 
         $methodRawCode = array();

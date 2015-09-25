@@ -49,9 +49,11 @@ class GridsController extends ControllerBase
             $schema = $this->request->getPost('schema');
             $tableName = $this->request->getPost('tableName');
             $module = $this->request->getPost('module', 'string');
-            $namespace = $this->request->getPost('namespace', 'string');
-            $modelsNamespace = $this->request->getPost('modelsNamespace', 'string');
-
+            
+            $config = Tools::getConfig();
+            $namespace = $config->application->gridsNamespace[$module];
+            $modelsNamespace = $config->application->modelsNamespace[$module];
+            
             try {
             	
                 $gridsBuilder = new Grid(array(
@@ -65,6 +67,8 @@ class GridsController extends ControllerBase
                 ));
                 
                 $gridsBuilder->build();
+                
+                $this->flash->success('Grid for table "'.$tableName.'" was generated successfully');
 
             } catch (BuilderException $e) {
                 $this->flash->error($e->getMessage());
@@ -89,15 +93,14 @@ class GridsController extends ControllerBase
         $this->view->setVar('gridsDir', Tools::getConfig()->application->gridsDir);
         $this->view->setVar('modules', $modules);
         $this->view->setVar('curModule', $curModule);
-        
     }
 
     public function editAction($fileName)
     {
-
+        $curModule = $this->request->get('module', 'string');
+        $gridsDir = Tools::getConfig()->application->gridsDir[$curModule];
+        
         $fileName = str_replace('..', '', $fileName);
-
-        $gridsDir = Tools::getConfig()->application->gridsDir;
 
         if (!file_exists($gridsDir.'/'.$fileName)) {
             $this->flash->error('Model could not be found');
@@ -110,20 +113,20 @@ class GridsController extends ControllerBase
 
         $this->tag->setDefault('code', file_get_contents($gridsDir.'/'.$fileName));
         $this->tag->setDefault('name', $fileName);
+        $this->tag->setDefault('curModule', $curModule);
         $this->view->setVar('name', $fileName);
-
     }
 
     public function saveAction()
     {
-
         if ($this->request->isPost()) {
 
             $fileName = $this->request->getPost('name', 'string');
-
             $fileName = str_replace('..', '', $fileName);
 
-            $gridsDir = Tools::getConfig()->application->gridsDir;
+            $curModule = $this->request->get('curModule');
+            $gridsDir = Tools::getConfig()->application->gridsDir[$curModule];
+        
             if (!file_exists($gridsDir.'/'.$fileName)) {
                 $this->flash->error('Model could not be found');
 

@@ -49,9 +49,11 @@ class FormsController extends ControllerBase
             $schema = $this->request->getPost('schema');
             $tableName = $this->request->getPost('tableName');
             $module = $this->request->getPost('module', 'string');
-            $namespace = $this->request->getPost('namespace', 'string');
-            $modelsNamespace = $this->request->getPost('modelsNamespace', 'string');
-
+            
+            $config = Tools::getConfig();
+            $namespace = $config->application->formsNamespace[$module];
+            $modelsNamespace = $config->application->modelsNamespace[$module];
+            
             try {
             	
                 $formsBuilder = new Form(array(
@@ -65,6 +67,8 @@ class FormsController extends ControllerBase
                 ));
                 
                 $formsBuilder->build();
+                
+                $this->flash->success('Form for table "'.$tableName.'" was generated successfully');
 
             } catch (BuilderException $e) {
                 $this->flash->error($e->getMessage());
@@ -89,15 +93,14 @@ class FormsController extends ControllerBase
         $this->view->setVar('formsDir', Tools::getConfig()->application->formsDir);
         $this->view->setVar('modules', $modules);
         $this->view->setVar('curModule', $curModule);
-        
     }
 
     public function editAction($fileName)
     {
-
         $fileName = str_replace('..', '', $fileName);
 
-        $formsDir = Tools::getConfig()->application->formsDir;
+        $curModule = $this->request->get('module', 'string');
+        $formsDir = Tools::getConfig()->application->formsDir[$curModule];
 
         if (!file_exists($formsDir.'/'.$fileName)) {
             $this->flash->error('Model could not be found');
@@ -110,8 +113,8 @@ class FormsController extends ControllerBase
 
         $this->tag->setDefault('code', file_get_contents($formsDir.'/'.$fileName));
         $this->tag->setDefault('name', $fileName);
+        $this->tag->setDefault('curModule', $curModule);
         $this->view->setVar('name', $fileName);
-
     }
 
     public function saveAction()
@@ -120,10 +123,11 @@ class FormsController extends ControllerBase
         if ($this->request->isPost()) {
 
             $fileName = $this->request->getPost('name', 'string');
-
             $fileName = str_replace('..', '', $fileName);
-
-            $formsDir = Tools::getConfig()->application->formsDir;
+            
+            $curModule = $this->request->get('curModule', 'string');
+            $formsDir = Tools::getConfig()->application->formsDir[$curModule];
+            
             if (!file_exists($formsDir.'/'.$fileName)) {
                 $this->flash->error('Model could not be found');
 

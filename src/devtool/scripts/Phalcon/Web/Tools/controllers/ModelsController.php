@@ -45,6 +45,8 @@ class ModelsController extends ControllerBase
 
         if ($this->request->isPost()) {
 
+            $config = Tools::getConfig();
+                
             $force = $this->request->getPost('force', 'int');
             $schema = $this->request->getPost('schema');
             $tableName = $this->request->getPost('tableName');
@@ -52,8 +54,10 @@ class ModelsController extends ControllerBase
             $foreignKeys = $this->request->getPost('foreignKeys', 'int');
             $defineRelations = $this->request->getPost('defineRelations', 'int');
             $module = $this->request->getPost('module', 'string');
-            $namespace = $this->request->getPost('namespace', 'string');
-
+            
+            $config = Tools::getConfig();
+            $namespace = $config->application->modelsNamespace[$module];
+            
             try {
 
                 $component = '\Phalcon\Builder\Model';
@@ -118,15 +122,14 @@ class ModelsController extends ControllerBase
         $this->view->setVar('modelsDir', Tools::getConfig()->application->modelsDir);
         $this->view->setVar('modules', $modules);
         $this->view->setVar('curModule', $curModule);
-        
     }
 
     public function editAction($fileName)
     {
-
         $fileName = str_replace('..', '', $fileName);
 
-        $modelsDir = Tools::getConfig()->application->modelsDir;
+        $curModule = $this->request->get('module', 'string');
+        $modelsDir = Tools::getConfig()->application->modelsDir[$curModule];
 
         if (!file_exists($modelsDir.'/'.$fileName)) {
             $this->flash->error('Model could not be found');
@@ -139,8 +142,8 @@ class ModelsController extends ControllerBase
 
         $this->tag->setDefault('code', file_get_contents($modelsDir.'/'.$fileName));
         $this->tag->setDefault('name', $fileName);
+        $this->tag->setDefault('curModule', $curModule);
         $this->view->setVar('name', $fileName);
-
     }
 
     public function saveAction()
@@ -152,7 +155,9 @@ class ModelsController extends ControllerBase
 
             $fileName = str_replace('..', '', $fileName);
 
-            $modelsDir = Tools::getConfig()->application->modelsDir;
+            $curModule = $this->request->get('curModule', 'string');
+            $modelsDir = Tools::getConfig()->application->modelsDir[$curModule];
+            
             if (!file_exists($modelsDir.'/'.$fileName)) {
                 $this->flash->error('Model could not be found');
 
