@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Base as BaseModel;
 
-class Admin extends BaseModel
+class AclRoleResource extends BaseModel
 {
 
     /**
@@ -21,27 +21,9 @@ class Admin extends BaseModel
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    protected $username;
-
-    /**
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
-     *
-     * @var string
-     */
-    protected $role;
-
-    /**
-     *
-     * @var string
-     */
-    protected $full_name;
+    protected $id_acl_resource;
 
     /**
      *
@@ -88,53 +70,14 @@ class Admin extends BaseModel
     }
 
     /**
-     * Method to set the value of field username
+     * Method to set the value of field id_acl_resource
      *
-     * @param string $username
+     * @param integer $id_acl_resource
      * @return $this
      */
-    public function setUsername($username)
+    public function setIdAclResource($id_acl_resource)
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field password
-     *
-     * @param string $password
-     * @return $this
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field role
-     *
-     * @param string $role
-     * @return $this
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field full_name
-     *
-     * @param string $full_name
-     * @return $this
-     */
-    public function setFullName($full_name)
-    {
-        $this->full_name = $full_name;
+        $this->id_acl_resource = $id_acl_resource;
 
         return $this;
     }
@@ -199,43 +142,13 @@ class Admin extends BaseModel
     }
 
     /**
-     * Returns the value of field username
+     * Returns the value of field id_acl_resource
      *
-     * @return string
+     * @return integer
      */
-    public function getUsername()
+    public function getIdAclResource()
     {
-        return $this->username;
-    }
-
-    /**
-     * Returns the value of field password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Returns the value of field role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Returns the value of field full_name
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->full_name;
+        return $this->id_acl_resource;
     }
 
     /**
@@ -270,7 +183,7 @@ class Admin extends BaseModel
 
     public function getSource()
     {
-        return 'admin';
+        return 'acl_role_resource';
     }
 
 }

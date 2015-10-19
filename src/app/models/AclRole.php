@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Base as BaseModel;
 
-class Admin extends BaseModel
+class AclRole extends BaseModel
 {
 
     /**
@@ -15,33 +15,15 @@ class Admin extends BaseModel
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    protected $id_acl_role;
+    protected $name;
 
     /**
      *
      * @var string
      */
-    protected $username;
-
-    /**
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
-     *
-     * @var string
-     */
-    protected $role;
-
-    /**
-     *
-     * @var string
-     */
-    protected $full_name;
+    protected $note;
 
     /**
      *
@@ -75,66 +57,27 @@ class Admin extends BaseModel
     }
 
     /**
-     * Method to set the value of field id_acl_role
+     * Method to set the value of field name
      *
-     * @param integer $id_acl_role
+     * @param string $name
      * @return $this
      */
-    public function setIdAclRole($id_acl_role)
+    public function setName($name)
     {
-        $this->id_acl_role = $id_acl_role;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field username
+     * Method to set the value of field note
      *
-     * @param string $username
+     * @param string $note
      * @return $this
      */
-    public function setUsername($username)
+    public function setNote($note)
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field password
-     *
-     * @param string $password
-     * @return $this
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field role
-     *
-     * @param string $role
-     * @return $this
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Method to set the value of field full_name
-     *
-     * @param string $full_name
-     * @return $this
-     */
-    public function setFullName($full_name)
-    {
-        $this->full_name = $full_name;
+        $this->note = $note;
 
         return $this;
     }
@@ -189,53 +132,23 @@ class Admin extends BaseModel
     }
 
     /**
-     * Returns the value of field id_acl_role
-     *
-     * @return integer
-     */
-    public function getIdAclRole()
-    {
-        return $this->id_acl_role;
-    }
-
-    /**
-     * Returns the value of field username
+     * Returns the value of field name
      *
      * @return string
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * Returns the value of field password
+     * Returns the value of field note
      *
      * @return string
      */
-    public function getPassword()
+    public function getNote()
     {
-        return $this->password;
-    }
-
-    /**
-     * Returns the value of field role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Returns the value of field full_name
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->full_name;
+        return $this->note;
     }
 
     /**
@@ -270,7 +183,7 @@ class Admin extends BaseModel
 
     public function getSource()
     {
-        return 'admin';
+        return 'acl_role';
     }
 
 }

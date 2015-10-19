@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Base as BaseModel;
 
-class Admin extends BaseModel
+class AclResource extends BaseModel
 {
 
     /**
@@ -17,31 +17,31 @@ class Admin extends BaseModel
      *
      * @var integer
      */
-    protected $id_acl_role;
+    protected $id_parent;
 
     /**
      *
      * @var string
      */
-    protected $username;
+    protected $name;
 
     /**
      *
      * @var string
      */
-    protected $password;
+    protected $action;
 
     /**
      *
      * @var string
      */
-    protected $role;
+    protected $title;
 
     /**
      *
      * @var string
      */
-    protected $full_name;
+    protected $note;
 
     /**
      *
@@ -75,66 +75,66 @@ class Admin extends BaseModel
     }
 
     /**
-     * Method to set the value of field id_acl_role
+     * Method to set the value of field id_parent
      *
-     * @param integer $id_acl_role
+     * @param integer $id_parent
      * @return $this
      */
-    public function setIdAclRole($id_acl_role)
+    public function setIdParent($id_parent)
     {
-        $this->id_acl_role = $id_acl_role;
+        $this->id_parent = $id_parent;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field username
+     * Method to set the value of field name
      *
-     * @param string $username
+     * @param string $name
      * @return $this
      */
-    public function setUsername($username)
+    public function setName($name)
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field password
+     * Method to set the value of field action
      *
-     * @param string $password
+     * @param string $action
      * @return $this
      */
-    public function setPassword($password)
+    public function setAction($action)
     {
-        $this->password = $password;
+        $this->action = $action;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field role
+     * Method to set the value of field title
      *
-     * @param string $role
+     * @param string $title
      * @return $this
      */
-    public function setRole($role)
+    public function setTitle($title)
     {
-        $this->role = $role;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Method to set the value of field full_name
+     * Method to set the value of field note
      *
-     * @param string $full_name
+     * @param string $note
      * @return $this
      */
-    public function setFullName($full_name)
+    public function setNote($note)
     {
-        $this->full_name = $full_name;
+        $this->note = $note;
 
         return $this;
     }
@@ -189,53 +189,53 @@ class Admin extends BaseModel
     }
 
     /**
-     * Returns the value of field id_acl_role
+     * Returns the value of field id_parent
      *
      * @return integer
      */
-    public function getIdAclRole()
+    public function getIdParent()
     {
-        return $this->id_acl_role;
+        return $this->id_parent;
     }
 
     /**
-     * Returns the value of field username
+     * Returns the value of field name
      *
      * @return string
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * Returns the value of field password
+     * Returns the value of field action
      *
      * @return string
      */
-    public function getPassword()
+    public function getAction()
     {
-        return $this->password;
+        return $this->action;
     }
 
     /**
-     * Returns the value of field role
+     * Returns the value of field title
      *
      * @return string
      */
-    public function getRole()
+    public function getTitle()
     {
-        return $this->role;
+        return $this->title;
     }
 
     /**
-     * Returns the value of field full_name
+     * Returns the value of field note
      *
      * @return string
      */
-    public function getFullName()
+    public function getNote()
     {
-        return $this->full_name;
+        return $this->note;
     }
 
     /**
@@ -270,7 +270,7 @@ class Admin extends BaseModel
 
     public function getSource()
     {
-        return 'admin';
+        return 'acl_resource';
     }
 
 }

@@ -30,11 +30,11 @@ class SecurityPlugin extends Plugin {
 	 * @return multitype:\Phalcon\Acl\Role
 	 */
     public function getRoles() {
-	    $roleModels = \App\Models\Role::find(array("status" => \App\Models\Role::STATUS_ACTIVE));
+	    $roleModels = \App\Models\AclRole::find(array("status" => \App\Models\Role::STATUS_ACTIVE));
 	    $data = array();
 	    foreach ($roleModels as $key=>$roleModel) {
 	        $index = $roleModel->getId(); 
-	        $data[$index] = new Role($index);
+	        $data[$index] = new Role($index, $roleModel->getName());
 	    }
 	    return $data;
 	}
@@ -45,20 +45,11 @@ class SecurityPlugin extends Plugin {
 	 * @return multitype:multitype:multitype:string
 	 */
     public function getRoleResources() {
-	    $data = array();
-	    $roleModels = \App\Models\Role::find(array("status" => \App\Models\Role::STATUS_ACTIVE));
-	    
-	    foreach ($roleModels as $key=>$roleModel) {
-	        $index = $roleModel->getId();
-	        $modules = json_decode($roleModel->getRole(), true);
-	        foreach($modules as $moduleKey => $moduleVal) {
-	            foreach ($moduleVal as $controllerKey=>$controllerVal) {
-	                $data[$index][$moduleKey.'-'.strtolower($controllerKey)] = array_keys($controllerVal);
-	            }
-	        }
-	    }
-	    
-	    return $data;
+	    return \App\Models\AclRoleResource::find(array("status" => \App\Models\Role::STATUS_ACTIVE));
+	}
+	
+    public function getResource($id) {
+	    return \App\Models\AclResource::findFirst($id);
 	}
 	
 	/**
@@ -70,6 +61,7 @@ class SecurityPlugin extends Plugin {
 	public function getPublicResources() {
 		return array(
 			'frontend-error' => array('show404', 'show500'),
+			'backend-auth' => array('login', 'logout'),
 		);
 	}
 	
@@ -80,18 +72,18 @@ class SecurityPlugin extends Plugin {
 	 * @param Dispatcher $dispatcher
 	 */
 	public function beforeDispatch(Event $event, Dispatcher $dispatcher) {
-		$role = null;
+		$idAclRole = null;
 		
-		if(($auth = $this->session->get('auth')) && isset($auth['role'])) {
-			$role = $auth['role'];
+		if(($auth = $this->session->get('auth')) && isset($auth['id_acl_role'])) {
+			$idAclRole = $auth['id_acl_role'];
 		}
 		
-		if(empty($role) && $dispatcher->getControllerName() != 'index' && $dispatcher->getActionName() != 'login') {
-			$this->response->redirect('/backend/auth/login');
+		if(empty($idAclRole) && $dispatcher->getControllerName() != 'index' && $dispatcher->getActionName() != 'login') {
+			return $this->response->redirect('/backend/auth/login');
 		}
 		
-		if($role == self::ROLE_SUPERADMIN && !$this->session->get('ACL_UPDATED')) {
-			return;
+		if($idAclRole == self::ROLE_SUPERADMIN && !$this->session->get('ACL_UPDATED')) {
+			return true;
 		}
 		
 		$resource = $this->_getResource($dispatcher);
@@ -99,11 +91,10 @@ class SecurityPlugin extends Plugin {
 		
 		// Check allow access
 		$acl = $this->_getAcl();
-		$allowed = $acl->isAllowed($role, $resource, $access);
+		$allowed = $acl->isAllowed($idAclRole, $resource, $access);
 		
 		if ($allowed != Acl::ALLOW && $dispatcher->getControllerName() != 'auth') {
-			$this->response->redirect('/backend/auth/denied');
-			return false;
+			return $this->response->redirect('/backend/auth/denied');
 		}
 	}
 	
@@ -118,17 +109,26 @@ class SecurityPlugin extends Plugin {
 		$this->_addRoles();
 
 		$roles = $this->getRoles();
-		$roleResources = $this->getRoleResources();
+		$roleResources = $this->getRoleResources();		
 				
-		foreach ($roleResources as $roleName => $resources) {
-			foreach ($resources as $resource => $actions) {
-				$this->_acl->addResource(new Resource($resource), $actions);
-	
-				// Grant acess to private area to roles
-				foreach ($actions as $action) {
-					$this->_acl->allow($roleName, $resource, $action);
-				}
-			}
+		foreach ($roleResources as $roleResource) {
+		    $idAclRole = $roleResource->getIdAclRole();
+		    $idAclResource = $roleResource->getIdAclResource();
+		    
+		    if(!($resource = self::getResource($idAclResource))) {
+		    	continue;
+		    }
+		    
+		    $resourceName = $resource->getName();
+		    $resourceAction = $resource->getAction();
+		    
+		    if($this->_acl->isResource($resourceName)) {
+		    	$this->_acl->addResourceAccess($resourceName, $resourceAction);
+		    } else {
+		        $this->_acl->addResource(new Resource($resourceName), $resourceAction);
+		    }
+		    
+		    $this->_acl->allow($idAclRole, $resourceName, $resourceAction);
 		}
 
 		// Public area resources
@@ -153,7 +153,7 @@ class SecurityPlugin extends Plugin {
 			$this->_acl = new \Phalcon\Acl\Adapter\Memory();
 	
 			$this->_addResources();
-	
+		
 			// Store serialized list into plain file
 			file_put_contents($aclFile, serialize($this->_acl));
 	

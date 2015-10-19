@@ -14,9 +14,8 @@ class AuthController extends BaseController {
     }
 
     public function loginAction() {
-        die('1');
     	if($this->session->get('auth')) {
-    		return $this->response->redirect('/backend/index/index');
+    	    return $this->redirect('index', 'index');
     	}    	
     	
     	$message = null;
@@ -29,8 +28,6 @@ class AuthController extends BaseController {
 	            $password = Common::hash($password);
 	            $language = $form->getValue('language');
 	            
-	            $this->debugdie($form->getValues());
-	            
 	            $admin = Admin::findFirst(array(
 	                "username = :username: AND password = :password: AND status = 1",
 	                'bind' => array(
@@ -39,7 +36,7 @@ class AuthController extends BaseController {
 	                )
 	            ));
 	            if($admin) {
-	                $this->_registerSession($username, $admin->role, $admin->full_name, $language);
+	                $this->_registerSession($username, $admin->getIdAclRole(), $admin->getFullName(), $language);
 	                return $this->redirect('index', 'index');
 	            }
 	            $message = $this->_('Incorrect ID or Password or the account has been deleted. Please check the account and try again');
@@ -57,10 +54,10 @@ class AuthController extends BaseController {
      *
      * @param $admin $admin
      */
-    private function _registerSession($username, $role, $fullname, $language) {
+    private function _registerSession($username, $idAclRole, $fullname, $language) {
         $this->session->set('auth', array(
 		    'username' => $username,
-        	'role' => $role,	
+        	'id_acl_role' => $idAclRole,	
         	'fullname' => $fullname,	
             'language' => $language
         ));
