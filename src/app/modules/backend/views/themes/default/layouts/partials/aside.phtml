@@ -1,13 +1,6 @@
-<!-- sidebar: style can be found in sidebar.less -->
-<?php
-use OE\Helper;
-?>
 <section class="sidebar">
-	<!-- sidebar menu: : style can be found in sidebar.less -->
 	<?php
-    	$navigationArr = include APP_PATH.'/config/'. APP_ENV .'/navigation.php';
-    	$navigation = new Helper\Navigation();
-    	echo $navigation->renderNavigation($navigationArr['backend']);
+    	$navigation = new OE\Helper\Navigation('backend');
+    	$navigation->render();
 	?>
 </section>
-<!-- /.sidebar -->

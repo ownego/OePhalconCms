@@ -3,7 +3,6 @@
 namespace App\Modules\Backend;
 
 use App\Plugins\Security;
-use Phalcon\Mvc\Router\Annotations;
 class Module extends \OE\Application\Module {
 	
 	public function __construct() {
@@ -25,23 +24,26 @@ class Module extends \OE\Application\Module {
 			$eventsManager = new \Phalcon\Events\Manager();
 			
 			$dispatcher->setDefaultNamespace($this->getNamespace(). "\Controllers\\");
-			
-			//Instantiate the Security plugin
-			//$security = new \SecurityPlugin();
 
 			//Listen for events produced in the dispatcher using the Security plugin
-			//$eventsManager->attach('dispatch', $security);
+			$eventsManager->attach('dispatch', new \SecurityPlugin());
+			
+			// Add listen for events handler request not found
+			$eventsManager->attach("dispatch", function($event, $dispatcher, $exception) {
+			    if ($event->getType() == 'beforeException') {
+			        switch ($exception->getCode()) {
+			        	case \Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+			        	case \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+			        	    $dispatcher->forward(array('module' => 'backend', 'controller' => 'error', 'action' => 'show404'));
+			        	    return false;
+			        }
+			    }
+			});
 		
 			//Bind the EventsManager to the Dispatcher
 			$dispatcher->setEventsManager($eventsManager);
 			
 			return $dispatcher;
 		});
-		
-// 		$di->set('router', function() {
-// 		     $router = new \Phalcon\Mvc\Router\Annotations(false);
-//              $router->addModuleResource('backend', 'Post', '/backend/post');
-//              return $router;
-// 		});
 	}
 }
