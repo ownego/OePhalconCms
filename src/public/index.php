@@ -1,4 +1,5 @@
 <?php
+if(function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 // Define path to app directory
 defined('APP_PATH')
