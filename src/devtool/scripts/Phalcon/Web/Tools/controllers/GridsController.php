@@ -88,7 +88,7 @@ class GridsController extends ControllerBase
         foreach($config->application->gridsDir as $module => $path) {
             $modules[$module] = $module;
         }
-        $curModule = $this->request->get('module', 'string') ? $this->request->get('module', 'string') : array_shift(array_slice($modules, 0, 1));
+        $curModule = $this->request->get('module', 'string') ? $this->request->get('module', 'string') : array_keys($modules)[0];
         
         $this->view->setVar('gridsDir', Tools::getConfig()->application->gridsDir);
         $this->view->setVar('modules', $modules);

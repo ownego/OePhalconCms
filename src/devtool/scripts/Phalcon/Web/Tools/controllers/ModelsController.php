@@ -117,7 +117,7 @@ class ModelsController extends ControllerBase
         foreach($config->application->modelsDir as $module => $path) {
             $modules[$module] = $module;
         }
-        $curModule = $this->request->get('module', 'string') ? $this->request->get('module', 'string') : array_shift(array_slice($modules, 0, 1));
+        $curModule = $this->request->get('module', 'string') ? $this->request->get('module', 'string') : array_keys($modules)[0];
         
         $this->view->setVar('modelsDir', Tools::getConfig()->application->modelsDir);
         $this->view->setVar('modules', $modules);

@@ -3,7 +3,7 @@ $config = require APP_PATH . '/config/'. APP_ENV . '/config.php';
 
 $application = array();
 $application['modelsDir']['base'] = APP_PATH. '/models/';
-$application['modelNamespace']['base'] = 'App\Models';
+$application['modelsNamespace']['base'] = 'App\Models';
 $application['pluginsDir'] = APP_PATH .'/plugins/';
 $application['libraryDir'] = APP_PATH .'/library/';
 $application['cacheDir'] = APP_PATH .'/../var/cache/';

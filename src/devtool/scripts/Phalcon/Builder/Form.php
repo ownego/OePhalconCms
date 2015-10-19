@@ -206,7 +206,7 @@ class Form extends Component
 		$uses[] = 'use OE\Widget\Form\Element\Email;';
 		$uses[] = 'use OE\Widget\Form\Element\Password;';
 		$uses[] = 'use OE\Widget\Form\Element\Select;';
-		$uses[] = 'use OE\Widget\Form\Element\Textarea;';
+		$uses[] = 'use OE\Widget\Form\Element\TextArea;';
 		$uses[] = 'use Phalcon\Validation\Validator\PresenceOf;';
 		$uses[] = 'use Phalcon\Validation\Validator\StringLength;';
 		$uses[] = 'use Phalcon\Validation\Validator\Email as EmailValidator;';
@@ -269,7 +269,7 @@ class Form extends Component
         	$element = 'Text';
         	
         	if($field->getSize() >= 100) {
-        		$element = 'Textarea';
+        		$element = 'TextArea';
         	}
         	
         	if($name == 'password') {
@@ -294,7 +294,7 @@ class Form extends Component
         )));\n\t\t", $name, '%n%', $name);
         	}
         	
-        	if(in_array($element, array('Text', 'Textarea', 'Password', 'Email'))) {
+        	if(in_array($element, array('Text', 'TextArea', 'Password', 'Email'))) {
         		$validator .= sprintf("\$%s->addValidator(new StringLength(array(
         		'max' => %s, 
         		'messageMaximum' => \$this->_('%s is too long. Maximum %s characters', array('n' => '%s', 'm' => %s)))
