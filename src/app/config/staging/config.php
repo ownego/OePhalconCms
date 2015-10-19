@@ -54,4 +54,7 @@ return array(
 		'adapter' => 'Files',
 		'annotationsDir' => APP_PATH . '/app/var/cache/annotations/',
 	),
+    'security' => array (
+        'aclFile' => APP_PATH . "/../var/security/acl.data",
+    ),
 ); 
