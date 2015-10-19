@@ -5,7 +5,9 @@ class Bootstrap extends \OE\Application\Bootstrap {
 		$this->_loader->registerNamespaces(array(
             'App\Models' => APP_PATH . '/models/',
             'App\Grids' => APP_PATH . '/grids/',
+            'App\Grids\Elements' => APP_PATH . '/grids/elements',
             'App\Forms' => APP_PATH . '/forms/',
+            'App\Forms\Groups' => APP_PATH . '/forms/groups',
             'App\Plugins' => APP_PATH . '/plugins/',				
             'App\Helpers' => APP_PATH . '/helpers/',				
             'App\Components' => APP_PATH . '/components/',
@@ -45,10 +47,12 @@ class Bootstrap extends \OE\Application\Bootstrap {
 		$di->set('i18n', $translate);
 	}
 	
-	public function _initNavigation() {
-		$navigation = require_once APP_PATH. '/config/'. APP_ENV .'/navigation.php';
-		
-	}
+// 	public function _initNavigation() {
+// 		$navigation = require APP_PATH. '/config/'. APP_ENV .'/navigation.php';
+// 		$this->_di->set('navigation', function() use($navigation) {
+// 			return $navigation;
+// 		});
+// 	}
 	
 	public function _initCache() {}
 	

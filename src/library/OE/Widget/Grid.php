@@ -103,7 +103,7 @@ class Grid extends Base {
 	public function initParams() {
 		$params = $this->request->get();
 		
-		if(isset($params[$this->name])) {
+        if(isset($params[$this->name])) {
 			$this->params = $params[$this->name];
 			$_SESSION['gridParams_'.$this->name] = $this->params;
 		} else {
@@ -121,10 +121,7 @@ class Grid extends Base {
 			$this->clearPaginator = true;
 		}
 		
-		if(!$this->disableExport 
-		  && $this->request->isAjax() == false 
-		  && $this->request->get('export') == true) 
-		{
+		if(!$this->disableExport && $this->request->isAjax() == false && $this->request->get('export') == true) {
 			$this->exporting = true;
 			$this->disablePagination = true;
 		}

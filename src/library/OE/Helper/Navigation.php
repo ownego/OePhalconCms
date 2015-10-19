@@ -4,78 +4,105 @@ namespace OE\Helper;
 
 use Phalcon\Tag;
 use Phalcon;
-use OE\Application\Controller;
+use OE\Object;
 
-class Navigation extends Controller {
+class Navigation extends Object {
+	
+	public $navigations;
+	
+	/**
+	 * Construct navigation 
+	 * 
+	 * @param string $moduleName
+	 * @throws \Exception
+	 */
+	public function __construct($moduleName) {
+		parent::__construct();
+		$navigationFile = APP_PATH . '/config/'. APP_ENV .'/navigation.php';
+		if(!file_exists($navigationFile)) {
+			throw new \Exception("Navigation file '$navigationFile' is not exists.");
+		}	
+		$navigation = require $navigationFile;
+		$this->navigations = $navigation[$moduleName];
+	}
     
-    public function renderNavigation ($navigations) {
-        $str = "";
-        $str .= Tag::tagHtml('ul', array('class'=>'sidebar-menu'));
+	/**
+	 * Render navigation to html
+	 * 
+	 * @return unknown
+	 */
+    public function render($return=false) {
+        $html = Tag::tagHtml('ul', array('class'=>'sidebar-menu'));
         
-        $navigations = $this->checkRole($navigations);
+        $navigations = $this->getNavigationByRole();
         
         foreach ($navigations as $navigation) {
-            $active = $this->checkParentActiveLink($navigation);
+            $active = $this->isParentActive($navigation);
             
             if (isset($navigation['pages']) && is_array($navigation['pages'])) {
-                $str .= $this->createLiTag($navigation, true, $active, false);
-                $str .= Tag::tagHtml('ul', array('class'=>'treeview-menu'));
+                $html .= $this->createLiTag($navigation, true, $active, false);
+                $html .= Tag::tagHtml('ul', array('class'=>'treeview-menu'));
                 
                 foreach ($navigation['pages'] as $page) {
                     if(!isset($page['display']) || $page['display']== true) {
-                        $active = $this->checkActiveLink($page['url'], $page['controller'], $page['action']);
-                        $str .= $this->createLiTag($page, false, $active, true);
+                        $active = $this->isActive($page['url'], $page['controller'], $page['action']);
+                        $html .= $this->createLiTag($page, false, $active, true);
                     }
                 }
                 
-                $str .= Tag::tagHtmlClose('ul');
-                $str .= Tag::tagHtmlClose('li');
+                $html .= Tag::tagHtmlClose('ul');
+                $html .= Tag::tagHtmlClose('li');
             } else {
-                $str .= $this->createLiTag($navigation, false, $active, true);
+                $html .= $this->createLiTag($navigation, false, $active, true);
             }
         }
-        $str .= Tag::tagHtmlClose('ul');
-        return $str;
+        $html .= Tag::tagHtmlClose('ul');
+        
+        if($return) return $html;
+        echo $html;
     }
     
     /**
+     * Get navigation by role
      * 
-     * @param array $configNavigation
-     * @return array navigation config
+     * @return array navigation
      */
-    public function checkRole($configNavigation) {
-        $userInfo = $this->session->get('auth');
-        $aclFile = APP_PATH . "/../var/security/acl.data";
-        $temp = array();
-        if (!is_file($aclFile)) {
-        	return $configNavigation;
+    public function getNavigationByRole() {
+        $navigation = array();
+        
+        $auth = $this->getDI()->get('session')->get('auth');
+        $acl = $this->getAcl();
+        if (!$acl) {
+        	return $this->navigations;
         }
-        $acl = unserialize(file_get_contents($aclFile));
-        foreach ($configNavigation as $key=>$val) {
-            if(!isset($val['pages']) || !is_array($val['pages'])){
+        
+        foreach ($this->navigations as $key=>$val) {
+            if(!isset($val['pages']) || !is_array($val['pages'])) {
+            	
                 $controller = str_replace('-', '', $val['controller']);
                 $controller = strtolower($controller);
-                if($acl->isAllowed($userInfo['role'], $val['module'].'-'.$controller, $val['action'])) {
-                    $temp[$key] = $val;
+                if($acl->isAllowed($auth['id_acl_role'], $val['module'].'-'.$controller, $val['action'])) {
+                    $navigation[$key] = $val;
                 }
             } elseif(isset($val['pages']) && is_array($val['pages'])) {
-                $temp[$key] = $val;
+                $navigation[$key] = $val;
                 $pages = $val['pages'];
                 $tempPage = array();
                 foreach ($pages as $page) {
                     $controller = str_replace('-', '', $page['controller']);
                     $controller = strtolower($controller);
-                    if($acl->isAllowed($userInfo['role'], $page['module'].'-'.$controller, $page['action'])) {
+                    if($acl->isAllowed($auth['id_acl_role'], $page['module'].'-'.$controller, $page['action'])) {
                         $tempPage[] = $page;
                     }
                 }
-                $temp[$key]['pages'] = $tempPage;
+                $navigation[$key]['pages'] = $tempPage;
                 if(count($tempPage) == 0) {
-                    unset($temp[$key]);
+                    unset($navigation[$key]);
                 }
             }
         }
-        return $temp;
+        
+        return $navigation;
     }
 
     /**
@@ -83,14 +110,11 @@ class Navigation extends Controller {
      *
      * @param array $navigations
      */
-    public function renderDashboard($navigations)
-    {
-        $str = "";
-        // List menu
-        $str .= Tag::tagHtml('h3');
-        $str .= $this->_('List Function');
-        $str .= Tag::tagHtmlClose('h3');
-        $str .= Tag::tagHtml('div', array('class' => 'row'));
+    public function renderDashboard($navigations) {
+        $html = Tag::tagHtml('h3');
+        $html .= $this->_('List Function');
+        $html .= Tag::tagHtmlClose('h3');
+        $html .= Tag::tagHtml('div', array('class' => 'row'));
         $count = 0;
         $boxClass = array(
         	'box-primary',
@@ -102,17 +126,17 @@ class Navigation extends Controller {
         foreach ($navigations as $k => $navigation) {
             if (isset($navigation['pages']) && is_array($navigation['pages'])) {
                 if ($count % 4 == 0) {
-                    $str .= Tag::tagHtmlClose('div');
-                    $str .= Tag::tagHtml('div', array('class' => 'row'));
+                    $html .= Tag::tagHtmlClose('div');
+                    $html .= Tag::tagHtml('div', array('class' => 'row'));
                 }
                 $navigation['box-class'] = $boxClass[$k%5];
-                $str .= $this->createCol($navigation);
+                $html .= $this->createCol($navigation);
                 ++$count;
             }
         }
-        $str .= Tag::tagHtmlClose('div');
+        $html .= Tag::tagHtmlClose('div');
 
-        return $str;
+        return $html;
     }
 
     /**
@@ -120,19 +144,17 @@ class Navigation extends Controller {
      *
      * @param array $arrParam
      */
-    public function createCol($arrParam = array())
-    {
-        $str = "";
-        $str .= Tag::tagHtml('div', array('class' => 'col-lg-3'));
-        $str .= Tag::tagHtml('div', array('class' => 'panel panel-default box box-solid '. $arrParam['box-class']));
-        $str .= Tag::tagHtml('div', array('class' => 'panel-heading box-header'));
-        $str .= Tag::tagHtml('h4', array());
-        $str .= isset($arrParam['pull-left']) ? Tag::tagHtml('i', array('class' => $arrParam['pull-left'])) : '';
-        $str .= Tag::tagHtmlClose('i');
-        $str .= isset($arrParam['label']) ? ' ' . $this->_($arrParam['label']) : '';
-        $str .= Tag::tagHtmlClose('h4');
-        $str .= Tag::tagHtmlClose('div');
-        $str .= Tag::tagHtml('div', array('class' => 'list-group'));
+    public function createCol($arrParam = array()) {
+        $html = Tag::tagHtml('div', array('class' => 'col-lg-3'));
+        $html .= Tag::tagHtml('div', array('class' => 'panel panel-default box box-solid '. $arrParam['box-class']));
+        $html .= Tag::tagHtml('div', array('class' => 'panel-heading box-header'));
+        $html .= Tag::tagHtml('h4', array());
+        $html .= isset($arrParam['pull-left']) ? Tag::tagHtml('i', array('class' => $arrParam['pull-left'])) : '';
+        $html .= Tag::tagHtmlClose('i');
+        $html .= isset($arrParam['label']) ? ' ' . $this->_($arrParam['label']) : '';
+        $html .= Tag::tagHtmlClose('h4');
+        $html .= Tag::tagHtmlClose('div');
+        $html .= Tag::tagHtml('div', array('class' => 'list-group'));
 
         foreach ($arrParam['pages'] as $page) {
             $flag = false;
@@ -143,18 +165,18 @@ class Navigation extends Controller {
             }
             
             if ($flag == true) {
-                $str .= Tag::tagHtml('a',
-                        array('href' => $this->genLink($page), 'class' => 'list-group-item'));
-                $str .= $this->_(isset($page['label']) ? $page['label'] : '');
-                $str .= Tag::tagHtmlClose('a');
+                $html .= Tag::tagHtml('a',
+                        array('href' => $this->getUrl($page), 'class' => 'list-group-item'));
+                $html .= $this->_(isset($page['label']) ? $page['label'] : '');
+                $html .= Tag::tagHtmlClose('a');
             }
         }
 
-        $str .= Tag::tagHtmlClose('div');
-        $str .= Tag::tagHtmlClose('div');
-        $str .= Tag::tagHtmlClose('div');
+        $html .= Tag::tagHtmlClose('div');
+        $html .= Tag::tagHtmlClose('div');
+        $html .= Tag::tagHtmlClose('div');
 
-        return $str;
+        return $html;
     }
 
     /**
@@ -167,60 +189,57 @@ class Navigation extends Controller {
      * @return string
      */
     public function createLiTag($arrParam = array(), $treeView = false, $active = false, $close  = false) {
-        $str = "";
-        $liClass = "";
-        $liClass .= $treeView ? 'treeview ' : '';
+        $liClass = $treeView ? 'treeview ' : '';
         $liClass .= $active == true ? 'active' : '';
         
-        $str .= Tag::tagHtml('li', array('class'=> $liClass));
+        $html = Tag::tagHtml('li', array('class'=> $liClass));
+        $html .= Tag::tagHtml('a', array('href' => $this->getUrl($arrParam)));
         
-        $str .= Tag::tagHtml('a', 
-                            array('href' => $this->genLink($arrParam)));
+        $html .= isset($arrParam['pull-left']) ? Tag::tagHtml('i', array('class' => $arrParam['pull-left']) ) : '';
+        $html .= Tag::tagHtmlClose('i');
         
-        $str .= isset($arrParam['pull-left']) ? Tag::tagHtml('i', array('class' => $arrParam['pull-left']) ) : '';
-        $str .= Tag::tagHtmlClose('i');
-        
-        $str .= Tag::tagHtml('span', true);
-        $str .= $this->_(isset($arrParam['label']) ? $arrParam['label'] : '');
-        $str .= Tag::tagHtmlClose('span');
+        $html .= Tag::tagHtml('span', true);
+        $html .= $this->_(isset($arrParam['label']) ? $arrParam['label'] : '');
+        $html .= Tag::tagHtmlClose('span');
         if (!$treeView)
-            $str .= isset($arrParam['pull-right']) ? $arrParam['pull-right'] : '';
+            $html .= isset($arrParam['pull-right']) ? $arrParam['pull-right'] : '';
         else 
-            $str .= '<i class="fa pull-right fa-angle-left"></i>';
+            $html .= '<i class="fa pull-right fa-angle-left"></i>';
         
-        $str .= Tag::tagHtmlClose('a'); // close a tag
+        $html .= Tag::tagHtmlClose('a');
         
-        if ($close)
-            $str .= Tag::tagHtmlClose('li') ; // close i tag
+        if ($close) $html .= Tag::tagHtmlClose('li');
         
-        return $str;
+        return $html;
     }
     
     
     /**
+     * Get url of page
      * 
      * @param array $arrParam
      * @param string $prefix
      * @param string $suffix
      * return link 
      */
-    public function genLink($arrParam, $prefix = '', $suffix = '') {
-        if (isset($arrParam['url']) && $arrParam['url'])
-            return $this->url->get($arrParam['url']);
+    public function getUrl($page, $prefix=null, $suffix=null) {
+        if (isset($page['url']) && $page['url'])
+            return $this->url->get($page['url']);
         
-        $module = isset($arrParam['module']) ? $arrParam['module'] : '';
-        $controller = isset($arrParam['controller']) ? $arrParam['controller'] : '';
-        $action = isset($arrParam['action']) ? $arrParam['action'] : '';
+        $module = isset($page['module']) ? $page['module'] : '';
+        $controller = isset($page['controller']) ? $page['controller'] : '';
+        $action = isset($page['action']) ? $page['action'] : '';
         
         if($module == null && $controller == null && $action == null) {
         	return "##";
         }
         
-        $uri = ($prefix ? $prefix : DIRECTORY_SEPARATOR) .$module.DIRECTORY_SEPARATOR.$controller.DIRECTORY_SEPARATOR.$action.$suffix;
+        $uri = ($prefix ? $prefix : DIRECTORY_SEPARATOR) 
+        .$module.DIRECTORY_SEPARATOR
+        .$controller.DIRECTORY_SEPARATOR
+        .$action.$suffix;
         
-        $url = $this->url->get($uri);
-        
-        return $url;
+        return $this->getDI()->get('url')->get($uri);
     }
     
     /**
@@ -230,13 +249,16 @@ class Navigation extends Controller {
      * @param string $action
      * @return boolean
      */
-    public function checkActiveLink($url, $controller = '', $action = '') {
+    public function isActive($url, $controller = '', $action = '') {
         if (strcmp($url, $_SERVER['REQUEST_URI']) == 0) 
             return true;        
         else {
+            $router = $this->getDI()->get('router');
             
-            $curController = $this->router->getControllerName();
-            $curAction = $this->router->getActionName();
+//             $this->debugdie($router->getMatchedRoute());
+            
+            $curController = $router->getControllerName();
+            $curAction = $router->getActionName();
            
             $cmpController = strcmp($curController, $controller);
             $cmpAction = strcmp($curAction, $action);
@@ -245,23 +267,39 @@ class Navigation extends Controller {
                 return $cmpController==0 && $cmpAction==0;
             else 
                 return $cmpController == 0; 
-        }
-       
+        }       
     }
     
-    public function checkParentActiveLink($navigation) {
-        if ($this->checkActiveLink('', $navigation['controller'], $navigation['action'])) 
+    /**
+     * Check parent of current page active
+     * 
+     * @param array $navigation
+     * @return boolean
+     */
+    public function isParentActive($navigation) {
+        if ($this->isActive('', $navigation['controller'], $navigation['action'])) 
             return true;
         
         if (isset($navigation['pages']) && is_array($navigation['pages'])) {
             foreach ($navigation['pages'] as $page) {
-                $active = $this->checkActiveLink($page['url'], $page['controller'], $page['action']);
-                if ($active == true)
-                    return true;
+                if ($this->isActive($page['url'], $page['controller'], $page['action'])) return true;
             }
         }
         
         return false;
     }
     
+    
+    /**
+     * Get acl by acl file 
+     * 
+     * @return boolean|mixed
+     */
+    public function getAcl() {
+    	$aclFile = $this->getDI()->get('config')->security->aclFile;
+    	if (!is_file($aclFile)) {
+    		return false;
+    	}
+    	return unserialize(file_get_contents($aclFile));
+    }
 }
