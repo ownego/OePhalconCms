@@ -317,7 +317,7 @@ trait ElementBehaviour {
 	 * @param array $validators
 	 * @param string $merge
 	 */
-	public function addValidators($validators, $merge = null) {
+	public function addValidators(array $validators, $merge = null) {
 		$this->validators = $validators;
 	}
 	
@@ -327,7 +327,7 @@ trait ElementBehaviour {
 	 * @param Validator $validator
 	 * @return \OE\Widget\Form\ElementBehaviour
 	 */
-	public function addValidator($validator) {
+	public function addValidator(\Phalcon\Validation\Validator $validator) {
 		if($validator instanceof Validator) {
 			$this->validators[] = $validator;
 		}
