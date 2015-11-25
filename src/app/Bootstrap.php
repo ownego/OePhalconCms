@@ -47,13 +47,6 @@ class Bootstrap extends \OE\Application\Bootstrap {
 		$di->set('i18n', $translate);
 	}
 	
-// 	public function _initNavigation() {
-// 		$navigation = require APP_PATH. '/config/'. APP_ENV .'/navigation.php';
-// 		$this->_di->set('navigation', function() use($navigation) {
-// 			return $navigation;
-// 		});
-// 	}
-	
 	public function _initCache() {}
 	
 	public function _initLog() {}

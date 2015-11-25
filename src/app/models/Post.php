@@ -1,5 +1,7 @@
 <?php
         		        		
+namespace App\Models;
+
 use Phalcon\Mvc\Model as ModelApp;
 
 class Post extends ModelApp
@@ -467,6 +469,11 @@ class Post extends ModelApp
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getSource()
+    {
+        return 'post';
     }
 
 }

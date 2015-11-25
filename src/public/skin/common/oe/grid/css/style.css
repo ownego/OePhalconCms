@@ -1,22 +1,19 @@
 @CHARSET "ISO-8859-1";
 
-.oe-grid-container {
-	background-color: #fff;
-	padding: 20px 10px;
-}
 .oe-grid-container .oe-grid {
 	clear: both;
 	margin-top: 20px;
+	margin-bottom: 20px;
+} 
+.oe-grid-container .oe-grid .table {
+	border-top: 3px solid #00a65a;
 } 
 .oe-grid-container .oe-grid .table tr td, 
 .oe-grid-container .oe-grid .table tr th {
-	padding: 6px;
+	padding: 8px 6px;
 	font-size: 13px;
 	vertical-align: initial;
 }
-.oe-grid-container .oe-grid .table thead tr {
-	background-color: #F5F5F5;
-}	
 .oe-grid-container .oe-grid .table thead tr th {
 	font-size: 12px;
 	text-transform: capitalize;
@@ -26,12 +23,11 @@
 	border-radius: 0;
 	text-align: center;
 	font-size: 13px;
-	border-color: #EAEBEC;
 }
 .oe-grid-container .oe-grid .oe-filters button {
 	padding: 2px 6px;
 	background: #fff;
-	border: 1px solid #EAEBEC;
+	border: 1px solid #ccc;
 	border-radius: 0;
 	position: absolute;
 	top: 0;
@@ -64,10 +60,10 @@
 	margin-left: 10px;
 }
 .oe-grid-container .oe-pagesize select {
-	width: 65px;
+	width: 90px;
 	display: inline-block;
 	height: auto;
-	padding: 2px;
+	padding: 2px 10px;
 }
 .oe-grid-container .oe-pagesize p {
 	display: inline-block;
@@ -76,29 +72,25 @@
 }
 .oe-grid-container .oe-paginator .pagination>li>a,
 .oe-grid-container .oe-paginator .pagination>li>span {
-	padding: 2px 8px;
-	border-radius: 0;	
+	padding: 4px 10px;	
 }
 .oe-grid-container .oe-paginator .pagination {
 	margin: 0;
 }
 .oe-grid-container .oe-paginator {
-	float: left;	
-    margin-right: 20px;
+	float: right;	
 }
 .oe-grid-container .oe-pagesize {
 	float: left;
 	margin-bottom: 15px;
 }
 .oe-grid-container .oe-summarytext {
-	float: left;
-	margin-left: 10px;
+	float: right;
 }
 .oe-grid-container .oe-summarytext p {
 	margin: 0;
 	padding: 0;
 	line-height: 30px;
-	font-size: 12px;
 }
 .oe-grid-container .oe-grid-toptool {
 	width: 100%;
@@ -129,12 +121,14 @@
 	margin-bottom: 10px;
 	margin-left: 10px;
 }
-.oe-grid-container .oe-grid-export .btn {
-	padding: 2px 8px;
-}
 .oe-grid-container .oe-grid-export ul.dropdown-menu {
 	left: inherit;
 	right: 0;
+}
+.oe-grid-container .oe-grid-export button.btn {
+	color: #fff;
+	background: #3c8dbc;
+	padding: 3px 6px;
 }
 .oe-filters .date-range {
 	display: inline-block;
@@ -178,7 +172,4 @@
 }
 .oe-grid-container .oe-grid .oe-table tbody tr:hover {
 	background-color: #dff0d8;
-}
-.pagination>li>a {
-	background: transparent;
 }

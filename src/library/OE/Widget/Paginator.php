@@ -50,7 +50,7 @@ class Paginator extends Base {
 		$html = '<div class="oe-paginator"><ul class="pagination">';
 		$html .= $this->_getPageItem(1, '&laquo;', null, 'first');
 		if($page > 1) {
-			$html .= $this->_getPageItem($page - 1, 'Prev', null, 'prev');
+			$html .= $this->_getPageItem($page - 1, $this->_( 'Prev'), null, 'prev');
 		}
 		
 		$pageStart = 1;
@@ -77,7 +77,7 @@ class Paginator extends Base {
 			$html .= $this->_getPageItem($i, $i, $active);
 		}
 		if($page < $totalPages) {
-			$html .= $this->_getPageItem($page + 1, 'Next', null, 'next');
+			$html .= $this->_getPageItem($page + 1, $this->_('Next'), null, 'next');
 		}
 		$html .= $this->_getPageItem($totalPages, '&raquo;', null, 'last" data-page="'. $totalPages);
 		$html .= '</ul></div>';

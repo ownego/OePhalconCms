@@ -1,18 +1,11 @@
-<style>
-.form-box{
-    color:#8a6d3b;
-    background:#eaeaec;
-}
-.message-box{
-    padding:0px;
-    margin-top:5px;
-}
-.no-margin{
-    text-align:justify;
-}
-</style>
-<div class="form-box" id="login-box">
-	<div class="header"><?php echo _('Offshore Department') ?></div>
-	<div class="message-login"><p class="no-margin"><?php echo $message ?></p></div>
-	<?php echo $form->render(); ?>
+<div class="login-box">
+	<div class="login-logo"><?php echo _('OePhalconCms') ?></div>
+	<div class="message-login">
+		<?php if($message) { ?>
+			<p class="no-margin"><?php echo $message ?></p>
+		<?php } ?>
+	</div>
+	<div class="login-box-body">
+    	<?php echo $form->render(); ?>
+	</div>
 </div>

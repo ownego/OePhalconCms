@@ -14,142 +14,53 @@ body.skin-black > .header .navbar {
 }
 .wrapper .content {
 	overflow: visible;
+	background: #fff;
 } 
 .right-side > .content-header {
-	padding-left: 15px;
+	padding-left: 25px;
 }
-
+.right-side > .content-header > .breadcrumb {
+	right: 20px;
+}
 .no-margin {
 	margin: 0;
 }
-
-#login-box .message-login {
-	padding: 10px 20px 0 20px;
+.login-box .form-groups {
+	padding: 0;
+}
+.login-box .message-login {
+	padding: 2px 0;
 	background-color: #eaeaec;
 	color: red;
 }
-#login-box .oe-form {
+.login-box .message-login p {
+	padding: 5px 0;
+	text-align: center;
+}
+.login-box .oe-form {
 	padding: 0;
 }
-#login-box #login {
-	padding-bottom: 20px;
+.login-box .login-logo {
+	margin-bottom: 0;
+	background: #ddd;
+	color: #555;
 }
-#login-box .oe-form .form-groups {
+.login-box #login {
+	padding-bottom: 5px;
+}
+.login-box .oe-form .form-groups {
 	padding: 0;
 }
-
 .no-padding-left {
 	padding-left: 0px;
 	clear: both;
 }
-
 .no-padding-right {
     padding-right: 0px;
 }
-
-/******Step by step ******/
-.smpl-step {
-    margin-top: 40px;
+.message-box {
+	margin-top: 10px;
 }
-.smpl-step {
-    border-bottom: solid 1px #e0e0e0;
-    padding: 0 0 10px 0;
-}
-
-.smpl-step > .smpl-step-step {
-    padding: 0;
-    position: relative;
-}
-
-.smpl-step > .smpl-step-step .smpl-step-num {
-    font-size: 17px;
-    margin-top: -20px;
-    margin-left: 47px;
-}
-
-.smpl-step > .smpl-step-step .smpl-step-info {
-    font-size: 14px;
-    padding-top: 27px;
-}
-
-.smpl-step > .smpl-step-step > .smpl-step-icon {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    display: block;
-    background: #ccc;
-    top: 45px;
-    left: 50%;
-    margin-top: -35px;
-    margin-left: -15px;
-    border-radius: 50%;
-}
-
-.smpl-step > .smpl-step-step .complete {
-	background: #5CB85C;
-}
-
-.smpl-step > .smpl-step-step .complete:after {
-    content: "Background text";
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-.smpl-step > .smpl-step-step > .progress {
-    position: relative;
-    border-radius: 0px;
-    height: 8px;
-    box-shadow: none;
-    margin-top: 37px;
-}
-
-.smpl-step > .smpl-step-step > .progress > .progress-bar {
-    width: 0px;
-    box-shadow: none;
-    background: none;
-}
-
-.smpl-step > .smpl-step-step.complete > .progress > .progress-bar {
-    width: 100%;
-}
-
-.smpl-step > .smpl-step-step.active > .progress > .progress-bar {
-    width: 50%;
-}
-
-.smpl-step > .smpl-step-step:first-child.active > .progress > .progress-bar {
-    width: 0%;
-}
-
-.smpl-step > .smpl-step-step:last-child.active > .progress > .progress-bar {
-    width: 100%;
-}
-
-.smpl-step > .smpl-step-step.disabled > .smpl-step-icon {
-    background-color: #ccc;
-}
-
-.smpl-step > .smpl-step-step.disabled > .smpl-step-icon:after {
-    opacity: 0;
-}
-
-.smpl-step > .smpl-step-step:first-child > .progress {
-    left: 50%;
-    width: 50%;
-}
-
-.smpl-step > .smpl-step-step:last-child > .progress {
-    width: 50%;
-}
-
-.smpl-step > .smpl-step-step.disabled a.smpl-step-icon {
-    pointer-events: none;
-}
-.progress {
-	background-color:#ccc;
-}
-
 .message-box .alert {
 	margin: 0 0 5px 15px !important;
 	padding: 10px 30px 10px 20px;
@@ -158,17 +69,16 @@ body.skin-black > .header .navbar {
 	text-transform: capitalize;
 	color: #555;
 }
-
 .oe-detailview table tr th {
 	text-transform: capitalize;
 	width: 50%;
 }
 .content {
-	padding-top: 5px;
+	padding: 10px 15px;
 }
 .content .oe-detailview,
 .content .oe-form {
-	margin-top: 0px;
+	margin-top: 20px;
 }
 .content .oe-detailview table tr:first-child th,
 .content .oe-detailview table tr:first-child td {
@@ -202,55 +112,6 @@ body.skin-black > .header .navbar {
 	height: 20px;
 	border: 1px solid #ddd;
 }
-
-/* Register user step by step */
-.smpl-step {
-	margin-top: -20px;
-	border-bottom: 0;
-}
-.smpl-step > .smpl-step-step > .smpl-step-icon {
-	width: 40px;
-	height: 40px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-.smpl-step > .smpl-step-step > .smpl-step-icon i {
-	font-size: 24px;
-	padding-left: 14px;
-	line-height: 40px; 
-	color: #555;
-}
-.smpl-step > .smpl-step-step.complete > .smpl-step-icon {
-	background-color: #367fa9;
-}
-.smpl-step > .smpl-step-step.complete > .smpl-step-icon i {
-	color: #fff !important;	
-}
-.smpl-step > .smpl-step-step.editing .smpl-step-icon {
-	background-color: #f39c12;
-}
-.smpl-step > .smpl-step-step.complete i,
-.smpl-step > .smpl-step-step.editing i {
-	color: #fff !important;
-}
-.smpl-step > .smpl-step-step > .progress {
-	margin-top: 30px;
-	color: #e4e4e4;
-	height: 4px;
-}
-.smpl-step > .smpl-step-step .smpl-step-info {
-	text-transform: uppercase;
-	font-weight: bold;
-	padding-top: 10px;
-	padding-left: 12px;
-	color: #555;
-}
-.smpl-step > .smpl-step-step.editing .smpl-step-info {
-	color: #f39c12;
-}
-
-/* form register */
 .form-groups {
 	overflow: hidden;
 	padding: 0 20px 0 0;
@@ -262,19 +123,6 @@ body.skin-black > .header .navbar {
 .form-buttons .btn {
 	margin-left: 5px;
 }
-#formJobInfoBasic, 
-#formJobInfoDetail, 
-#formContractBasic, 
-#formContractDetail, 
-#bankInfo,
-#bankAccount,
-#formUser {
-	margin-top: 30px;
-}
-#formAddressUser {
-	margin-top: 65px;
-}
-
 .row-confirm-right{
 	text-align: right;
 	padding-right:5px;
@@ -288,86 +136,6 @@ body.skin-black > .header .navbar {
 }
 .form-group.no-padding-left.no-padding-right {
 	clear: none;
-}
-.commission-contract .oe-grid .oe-caption,
-.commission-contract .title {
-	font-size: 16px;
-}
-.commission-contract .oe-detailview {
-	margin-top: 0;
-}
-.commission-contract .oe-detailview .panel-body {
-	padding: 0;
-}
-.commission-contract .oe-detailview .panel-body table {
-	margin-bottom: 0;
-}
-.commission-contract .commission-total .currency {
-	text-align: left;
-}
-.commission-contract .commission-total .amount {
-	float: right;
-	text-align: right;
-}
-.commission-contract .date-issue-box {
-	width: 50%;
-	float: right;
-	padding: 12.5px;
-	background-color: #ddd;
-}
-.commission-contract .date-issue-box table {
-	margin-bottom: 0;
-}
-.commission-contract .date-issue-box table th {
-	border-right: 1px solid #9B9B9B;
-}
-.commission-contract .date-issue-box table td {
-	border: 1px solid #9B9B9B;
-	background-color: #fff;
-}
-.commission-contract .top-box .date-issue-short {
-	font-weight: bold;
-	font-size: 16px;
-}
-.commission-contract .top-box .to {
-	width: 50%;
-	background: #ddd;
-	min-height: 100px;
-	padding: 10px;
-}
-.commission-contract .top-box .to p {
-	font-weight: 600;
-	font-size: 18px;
-}
-.commission-contract .commission-total table thead tr,
-.commission-contract .oe-grid table thead tr {
-	background-color: #3c8dbc;
-	color: #fff;
-}
-.commission-contract.commission-lifestyle .commission-total table thead tr,
-.commission-contract.commission-lifestyle .oe-grid table thead tr,
-.commission-contract.commission-lifestyle .btn-primary,
-.commission-contract.commission-lifestyle .commission-total-text {
-	background-color: #0D980D;	
-	color: #fff;
-}
-.commission-contract.commission-lifestyle .commission-total-text {
-	text-align: center;
-	vertical-align: middle;
-}
-.commission-contract .commission-total table thead tr th,
-.commission-contract .oe-grid table thead tr th {
-	border: 1px dotted;
-}
-.commission-contract .commission-round {
-	overflow-x: auto;
-}
-.commission-contract .oe-grid .table tbody tr td,
-.commission-contract .oe-grid .table thead tr th {
-	padding: 10px 5px;
-}
-.form-control[name="commissionQuantumTmp[t.total]"] ~ .oe-operators {
-	left: -90%;
 }
 .oe-grid-footer td {
 	border: 0 !important;
@@ -399,10 +167,6 @@ body.skin-black > .header .navbar {
 .box.box-primary {
 	border-color: #3c8dbc;
 }
-.header-agency{
-    background: #3C8DBC !important;
-}
-
 .icon-eblow-plus{
 	width:20px;
 	height:16px;
@@ -420,42 +184,60 @@ body.skin-black > .header .navbar {
 .treeview li{
 	background:url('../img/elbow-line.gif') left repeat-y;
 }
-
 .icon-eblow-horizon{
     background:url('../img/elbow-line-horizon.gif') repeat-x;
     min-width:20px;
     height:16px;
 }
-.filter-commission-group .filter-commission{
-	width:200px;
-	float:left;
-    padding: 0px!important;
-    margin-right:20px;
+.oe-toptool {
+/*	margin: 10px 0 20px;*/
 }
-.filter-commission-group .form-group{
-	margin-bottom:0px;
+.content-header {
+	padding-top: 10px;
 }
-.filter-commission-group .form-buttons{
-	float:left;
-	margin:0px;
+.content-header>.breadcrumb {
+	top: 9px;
 }
-.filter-commission-group .form-groups{
-	width:auto!important;
+.sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 60%; 
 }
-.filter-commission-group #box-footer, .filter-commission-group #box-body{
-	width:auto !important;
-	float:left;
-}
-.filter-commission-group #box-body{
-	min-width:460px;
-}
-#formPaymentPeriodBtn button{
-	width: 300px;
-	margin:0px auto;
-}
-#formPaymentPeriodHidden input{
-	display: none;
+.category-list .sortable li {
+	list-style: none;
+	padding: 5px 10px;
+	margin: 5px;
+	border: 1px solid #ddd;	
+    background-color: #fff;
 }
 .oe-toptool {
-	margin: 20px 0;
+	float: left;
+}
+.oe-toptool .btn {
+	margin: 10px 0;
+}
+.oe-grid-container .oe-grid-toptool {
+	width: 50%;
+	float: right;
+	margin-top: 15px;
+}
+.commission-contract .oe-grid-container .oe-grid .table {
+	border-top: 0;
+}
+body > .header .logo {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.sortable li:hover {
+	cursor: move;
+}
+.sortable span,
+.sortable a {
+	text-transform: capitalize;
+} 
+.category-list ul li {
+	margin: 10px;
+}
+.category-list ul span {
+	text-transform: uppercase;
 }

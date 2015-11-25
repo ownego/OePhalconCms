@@ -8,7 +8,7 @@ use OE\Widget\Form\Element\Text;
 use OE\Widget\Form\Element\Email;
 use OE\Widget\Form\Element\Password;
 use OE\Widget\Form\Element\Select;
-use OE\Widget\Form\Element\Textarea;
+use OE\Widget\Form\Element\TextArea;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Email as EmailValidator;
@@ -30,7 +30,7 @@ class PostForm extends Form {
         ));
 						
 
-        $title = new Textarea('title');
+        $title = new TextArea('title');
 		$title->setLabel($this->_('title'));
         $title->addValidator(new PresenceOf(array(
         		'message' => $this->_('%n% is required', array('n' => 'title'))
@@ -41,7 +41,7 @@ class PostForm extends Form {
         ));
 						
 
-        $quote = new Textarea('quote');
+        $quote = new TextArea('quote');
 		$quote->setLabel($this->_('quote'));
         $quote->addValidator(new StringLength(array(
         		'max' => 500, 
@@ -57,7 +57,7 @@ class PostForm extends Form {
         ));
 						
 
-        $thumbnail = new Textarea('thumbnail');
+        $thumbnail = new TextArea('thumbnail');
 		$thumbnail->setLabel($this->_('thumbnail'));
         $thumbnail->addValidator(new StringLength(array(
         		'max' => 200, 
@@ -89,7 +89,7 @@ class PostForm extends Form {
         ));
 						
 
-        $decscription = new Textarea('decscription');
+        $decscription = new TextArea('decscription');
 		$decscription->setLabel($this->_('decscription'));
         $decscription->addValidator(new StringLength(array(
         		'max' => 200, 
@@ -113,7 +113,7 @@ class PostForm extends Form {
         ));
 						
 
-        $meta_title = new Textarea('meta_title');
+        $meta_title = new TextArea('meta_title');
 		$meta_title->setLabel($this->_('meta_title'));
         $meta_title->addValidator(new StringLength(array(
         		'max' => 255, 
@@ -121,7 +121,7 @@ class PostForm extends Form {
         ));
 						
 
-        $meta_description = new Textarea('meta_description');
+        $meta_description = new TextArea('meta_description');
 		$meta_description->setLabel($this->_('meta_description'));
         $meta_description->addValidator(new StringLength(array(
         		'max' => 255, 
@@ -129,7 +129,7 @@ class PostForm extends Form {
         ));
 						
 
-        $meta_keywords = new Textarea('meta_keywords');
+        $meta_keywords = new TextArea('meta_keywords');
 		$meta_keywords->setLabel($this->_('meta_keywords'));
         $meta_keywords->addValidator(new StringLength(array(
         		'max' => 255, 

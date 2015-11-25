@@ -60,6 +60,7 @@ class Grid extends Base {
 	
 	public $exportExt = 'xlsx';
 	public $exporting = false;
+	public $uri; 
 	
 	public function __construct($name) {
 		parent::__construct();
@@ -103,24 +104,21 @@ class Grid extends Base {
 	public function initParams() {
 		$params = $this->request->get();
 		
-        if(isset($params[$this->name])) {
+		if(isset($params[$this->name])) {
 			$this->params = $params[$this->name];
 			$_SESSION['gridParams_'.$this->name] = $this->params;
 		} else {
-		    $this->params = $_SESSION['gridParams_'.$this->name];			
+		    $this->params = isset($_SESSION['gridParams_'.$this->name]) ? $_SESSION['gridParams_'.$this->name] : null;
 		}
-		
 		if(isset($params['opt'])) {
 			$this->operators = $params['opt'];
 			$_SESSION['gridOpt_'.$this->name] = $this->operators;
 		} else {
-			$this->operators = $_SESSION['gridOpt_'.$this->name];			
+			$this->operators = isset($_SESSION['gridOpt_'.$this->name]) ? $_SESSION['gridOpt_'.$this->name] : null;			
 		}
-		
 		if(!empty($this->params['clearPaginator'])) {
 			$this->clearPaginator = true;
 		}
-		
 		if(!$this->disableExport && $this->request->isAjax() == false && $this->request->get('export') == true) {
 			$this->exporting = true;
 			$this->disablePagination = true;
@@ -245,6 +243,10 @@ class Grid extends Base {
 	protected function _getContent() {
 		$content = $this->renderTable();
 		$content .= $this->renderHiddenInput();
+		if(!$this->disablePagination) {
+			$content .= $this->renderPaginator();
+			$content .= $this->renderPageSize();
+		}
 		
 		$html = $this->renderTopTool();
 		$html .= sprintf('<div class="oe-grid-content">%s</div>', $content);
@@ -272,10 +274,6 @@ class Grid extends Base {
 	 */
 	public function renderTopTool() {
 		$html = '<div class="oe-grid-toptool">';
-		if(!$this->disablePagination) {
-		    $html .= $this->renderPaginator();
-		    $html .= $this->renderPageSize();
-		}
 		if(!$this->disableExport) {
 			$html .= $this->renderExportBox();
 		}
@@ -283,8 +281,8 @@ class Grid extends Base {
 			$html  .= $this->renderSummaryText();
 		}
 		if($this->ajaxRender == false) {
-			$html .= sprintf('<div class="btn-group"><button type="button" class="%s">%s</button>', $this->classBtnFilter, $this->_('Filter'));
-			$html .= sprintf('<button type="button" class="%s">%s</button></div>', $this->classBtnClearFilter, $this->_('Clear Filter'));
+			//$html .= sprintf('<div class="btn-group"><button type="button" class="%s">%s</button>', $this->classBtnFilter, $this->_('Filter'));
+			//$html .= sprintf('<button type="button" class="%s">%s</button></div>', $this->classBtnClearFilter, $this->_('Clear Filter'));
 		}
 		$html .= '</div>';
 		return $html;
@@ -389,7 +387,7 @@ class Grid extends Base {
 		
 		$html = '<div class="oe-grid-export">';
 		$html .= '<div class="btn-group">';
-		$html .= '<button type="button" class="btn" data-toggle="dropdown">'. _('Export') .'</button>';
+		$html .= '<button type="button" class="btn" data-toggle="dropdown">'. $this->_('Export') .'</button>';
 		$html .= '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
 		$html .= '<span class="caret"></span></button>';
 		$html .= '<ul class="dropdown-menu" role="menu">';
@@ -571,6 +569,9 @@ class Grid extends Base {
 	 * @return string $uri
 	 */
 	public function getUri() {
+	    if($this->uri) {
+	        return $this->uri;
+	    }
 		$baseUri = $this->getDI()->get('url')->getBaseUri();
 		$rewriteUri = $this->getDI()->get('router')->getRewriteUri();
 		
@@ -631,5 +632,16 @@ class Grid extends Base {
 	public function setDisableFilter($disable=true) {
 		$this->disableFilter = $disable;
 		return $this;
+	}
+	
+	/**
+	 * Set uri to post data
+	 * 
+	 * @param unknown $uri
+	 * @return \OE\Widget\Grid
+	 */
+	public function setUri($uri) {
+	    $this->uri = $uri;
+	    return $this;
 	}
 }

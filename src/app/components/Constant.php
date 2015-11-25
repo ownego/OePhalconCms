@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model\Query\Status;
 
 class Constant extends Object {
 	
-	const MAIN_SITE = 'http://kissmovies.me/';
+	const MAIN_SITE = 'http://oephalconcms.me/';
 	
 	const LANG_EN = 'en';
 	const LANG_VI = 'vi';
