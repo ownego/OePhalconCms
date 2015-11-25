@@ -327,7 +327,7 @@ trait ElementBehaviour {
 	 * @param Validator $validator
 	 * @return \OE\Widget\Form\ElementBehaviour
 	 */
-	public function addValidator(\Phalcon\Validation\Validator $validator) {
+	public function addValidator(Phalcon\Validation\ValidatorInterface $validator) {
 		if($validator instanceof Validator) {
 			$this->validators[] = $validator;
 		}
