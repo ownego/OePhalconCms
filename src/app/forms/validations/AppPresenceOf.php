@@ -3,6 +3,7 @@ namespace App\Forms\Validations;
 
 use Phalcon\Validation\Validator\PresenceOf;
 use App\Helpers\Translate;
+
 class AppPresenceOf extends PresenceOf {
 	
 	public function __construct($options) {

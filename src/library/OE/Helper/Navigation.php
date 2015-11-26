@@ -6,9 +6,12 @@ use Phalcon\Tag;
 use Phalcon;
 use OE\Object;
 
-class Navigation extends Object {
+class Navigation extends Object 
+{
 	
 	public $navigations;
+	
+	public $router;
 	
 	/**
 	 * Construct navigation 
@@ -16,7 +19,8 @@ class Navigation extends Object {
 	 * @param string $moduleName
 	 * @throws \Exception
 	 */
-	public function __construct($moduleName) {
+	public function __construct($moduleName, $router) 
+	{
 		parent::__construct();
 		$navigationFile = APP_PATH . '/config/'. APP_ENV .'/navigation.php';
 		if(!file_exists($navigationFile)) {
@@ -24,6 +28,7 @@ class Navigation extends Object {
 		}	
 		$navigation = require $navigationFile;
 		$this->navigations = $navigation[$moduleName];
+		$this->router = $router;
 	}
     
 	/**
@@ -31,7 +36,8 @@ class Navigation extends Object {
 	 * 
 	 * @return unknown
 	 */
-    public function render($return=false) {
+    public function render($return=false) 
+    {
         $html = Tag::tagHtml('ul', array('class'=>'sidebar-menu'));
         
         $navigations = $this->getNavigationByRole();
@@ -67,7 +73,8 @@ class Navigation extends Object {
      * 
      * @return array navigation
      */
-    public function getNavigationByRole() {
+    public function getNavigationByRole() 
+    {
         $navigation = array();
         
         $auth = $this->getDI()->get('session')->get('auth');
@@ -110,7 +117,8 @@ class Navigation extends Object {
      *
      * @param array $navigations
      */
-    public function renderDashboard($navigations) {
+    public function renderDashboard($navigations) 
+    {
         $html = Tag::tagHtml('h3');
         $html .= $this->_('List Function');
         $html .= Tag::tagHtmlClose('h3');
@@ -144,7 +152,8 @@ class Navigation extends Object {
      *
      * @param array $arrParam
      */
-    public function createCol($arrParam = array()) {
+    public function createCol($arrParam) 
+    {
         $html = Tag::tagHtml('div', array('class' => 'col-lg-3'));
         $html .= Tag::tagHtml('div', array('class' => 'panel panel-default box box-solid '. $arrParam['box-class']));
         $html .= Tag::tagHtml('div', array('class' => 'panel-heading box-header'));
@@ -188,7 +197,8 @@ class Navigation extends Object {
      * @param boolean $close
      * @return string
      */
-    public function createLiTag($arrParam = array(), $treeView = false, $active = false, $close  = false) {
+    public function createLiTag($arrParam = array(), $treeView = false, $active = false, $close  = false) 
+    {
         $liClass = $treeView ? 'treeview ' : '';
         $liClass .= $active == true ? 'active' : '';
         
@@ -222,7 +232,8 @@ class Navigation extends Object {
      * @param string $suffix
      * return link 
      */
-    public function getUrl($page, $prefix=null, $suffix=null) {
+    public function getUrl($page, $prefix=null, $suffix=null) 
+    {
         if (isset($page['url']) && $page['url'])
             return $this->url->get($page['url']);
         
@@ -249,24 +260,22 @@ class Navigation extends Object {
      * @param string $action
      * @return boolean
      */
-    public function isActive($url, $controller = '', $action = '') {
-        if (strcmp($url, $_SERVER['REQUEST_URI']) == 0) 
-            return true;        
-        else {
-            $router = $this->getDI()->get('router');
-            
-//             $this->debugdie($router->getMatchedRoute());
-            
-            $curController = $router->getControllerName();
-            $curAction = $router->getActionName();
+    public function isActive($url, $controller=null, $action=null) 
+    {
+        if (strcmp($url, $_SERVER['REQUEST_URI']) == 0) {
+            return true;        	
+        } else {
+            $curController = $this->router->getControllerName();
+            $curAction = $this->router->getActionName();
            
             $cmpController = strcmp($curController, $controller);
             $cmpAction = strcmp($curAction, $action);
            
-            if ($action)
-                return $cmpController==0 && $cmpAction==0;
-            else 
-                return $cmpController == 0; 
+            if ($action) {
+                return $cmpController == 0 && $cmpAction == 0;            	
+            } else {
+                return $cmpController == 0;             	
+            }
         }       
     }
     
@@ -276,30 +285,46 @@ class Navigation extends Object {
      * @param array $navigation
      * @return boolean
      */
-    public function isParentActive($navigation) {
+    public function isParentActive($navigation) 
+    {
         if ($this->isActive('', $navigation['controller'], $navigation['action'])) 
             return true;
         
         if (isset($navigation['pages']) && is_array($navigation['pages'])) {
             foreach ($navigation['pages'] as $page) {
-                if ($this->isActive($page['url'], $page['controller'], $page['action'])) return true;
+                if ($this->isActive($page['url'], $page['controller'], $page['action'])) {
+	                return true;
+                } 
             }
         }
         
         return false;
     }
     
-    
     /**
      * Get acl by acl file 
      * 
      * @return boolean|mixed
      */
-    public function getAcl() {
+    public function getAcl() 
+    {
     	$aclFile = $this->getDI()->get('config')->security->aclFile;
     	if (!is_file($aclFile)) {
     		return false;
     	}
     	return unserialize(file_get_contents($aclFile));
+    }
+    
+    /**
+     * Get router
+     * 
+     * @return $router 
+     */
+    public function getRouter() 
+    {
+    	if (!$this->router) {
+    		$this->router = $this->getDI()->get('router');
+    	}
+    	return $this->router;
     }
 }
