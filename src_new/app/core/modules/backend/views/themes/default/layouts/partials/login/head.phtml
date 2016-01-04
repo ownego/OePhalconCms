@@ -1,0 +1,18 @@
+<?php
+echo Phalcon\Tag::getTitle();
+
+echo Phalcon\Tag::stylesheetLink("/skin/common/libs/bootstrap/dist/css/bootstrap.min.css");
+echo Phalcon\Tag::stylesheetLink("/skin/common/libs/adminlte/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css");
+echo Phalcon\Tag::stylesheetLink("/skin/common/libs/adminlte/dist/css/AdminLTE.min.css");
+ 
+echo Phalcon\Tag::stylesheetLink("/skin/common/oe/form/css/style.css");
+echo Phalcon\Tag::stylesheetLink("/skin/backend/default/css/style.css");
+?>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<?php 
+	echo Phalcon\Tag::javascriptInclude("https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js", false);
+	echo Phalcon\Tag::javascriptInclude("https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js", false);
+?>
+<![endif]-->

@@ -1,0 +1,11 @@
+<div class="login-box">
+	<div class="login-logo"><?php echo _('OePhalconCms') ?></div>
+	<div class="message-login">
+		<?php if($message) { ?>
+			<p class="no-margin"><?php echo $message ?></p>
+		<?php } ?>
+	</div>
+	<div class="login-box-body">
+    	<?php echo $form->render(); ?>
+	</div>
+</div>

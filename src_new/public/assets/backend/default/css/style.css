@@ -1,0 +1,243 @@
+/* Custom adminlte */
+body.skin-black > .header .navbar {
+	background-color: #333;
+	color: #fff;
+}
+.skin-black .navbar {
+	border-color: #333;
+}
+.skin-black .navbar .nav a {
+	color: #fff;	
+}
+.skin-black .navbar .sidebar-toggle .icon-bar {
+	background-color: #fff;
+}
+.wrapper .content {
+	overflow: visible;
+	background: #fff;
+} 
+.right-side > .content-header {
+	padding-left: 25px;
+}
+.right-side > .content-header > .breadcrumb {
+	right: 20px;
+}
+.no-margin {
+	margin: 0;
+}
+.login-box .form-groups {
+	padding: 0;
+}
+.login-box .message-login {
+	padding: 2px 0;
+	background-color: #eaeaec;
+	color: red;
+}
+.login-box .message-login p {
+	padding: 5px 0;
+	text-align: center;
+}
+.login-box .oe-form {
+	padding: 0;
+}
+.login-box .login-logo {
+	margin-bottom: 0;
+	background: #ddd;
+	color: #555;
+}
+.login-box #login {
+	padding-bottom: 5px;
+}
+.login-box .oe-form .form-groups {
+	padding: 0;
+}
+.no-padding-left {
+	padding-left: 0px;
+	clear: both;
+}
+.no-padding-right {
+    padding-right: 0px;
+}
+.message-box {
+	margin-top: 10px;
+}
+.message-box .alert {
+	margin: 0 0 5px 15px !important;
+	padding: 10px 30px 10px 20px;
+}
+.form-group label {
+	text-transform: capitalize;
+	color: #555;
+}
+.oe-detailview table tr th {
+	text-transform: capitalize;
+	width: 50%;
+}
+.content {
+	padding: 10px 15px;
+}
+.content .oe-detailview,
+.content .oe-form {
+	margin-top: 20px;
+}
+.content .oe-detailview table tr:first-child th,
+.content .oe-detailview table tr:first-child td {
+	border-top: 0;
+}
+.content .oe-form .form-control {
+	-webkit-border-radius: 2px !important;
+	-moz-border-radius: 2px !important;
+	border-radius: 2px !important;
+	height: 32px;
+	padding: 2px 12px;
+}
+.content .oe-form label {
+	margin-bottom: 1px;
+}
+.qtfooter {
+    z-index:100;
+    position:fixed;
+    bottom:0px;
+    padding-top: 4px;
+    padding-left: 530px;
+    padding-bottom: 29px;
+}
+.skin-black .navbar .nav .dropdown-menu a {
+	color: #000;
+} 
+.skin-black .navbar .nav .dropdown-menu a:hover {
+	color: #fff;
+}
+.icon-flag {
+	height: 20px;
+	border: 1px solid #ddd;
+}
+.form-groups {
+	overflow: hidden;
+	padding: 0 20px 0 0;
+}
+.form-buttons {
+	margin: 30px 0;
+	text-align: center;
+}
+.form-buttons .btn {
+	margin-left: 5px;
+}
+.row-confirm-right{
+	text-align: right;
+	padding-right:5px;
+}
+.row-confirm-left{
+	text-align: left;
+	padding-left:5px;
+}
+.form-group.clearfix {
+	clear: both;
+}
+.form-group.no-padding-left.no-padding-right {
+	clear: none;
+}
+.oe-grid-footer td {
+	border: 0 !important;
+}
+.oe-grid-footer .has-content {
+	background-color: #ddd;
+	font-weight: bold;
+	vertical-align: middle !important;
+}
+.dashboard-page .panel-heading h4 {
+	margin-top: 0;
+	padding-top: 0;
+}
+.dashboard-page .panel>.list-group a {
+	padding: 7px 38px;
+}
+.box.box-danger {
+	border-color: #f56954;
+}
+.box.box-info {
+	border-color: #00c0ef;
+}
+.box.box-success {
+	border-color: #00a65a;
+}
+.box.box-warning {
+	border-color: #f39c12;
+}
+.box.box-primary {
+	border-color: #3c8dbc;
+}
+.icon-eblow-plus{
+	width:20px;
+	height:16px;
+	background:url('../img/elbow-plus.gif');
+	display:inline-block;
+	cursor:pointer;
+}
+.icon-eblow-minus{
+    width:20px;
+    height:16px;
+    background:url('../img/elbow-minus.gif');
+    display:inline-block;
+    cursor:pointer;
+}
+.treeview li{
+	background:url('../img/elbow-line.gif') left repeat-y;
+}
+.icon-eblow-horizon{
+    background:url('../img/elbow-line-horizon.gif') repeat-x;
+    min-width:20px;
+    height:16px;
+}
+.oe-toptool {
+/*	margin: 10px 0 20px;*/
+}
+.content-header {
+	padding-top: 10px;
+}
+.content-header>.breadcrumb {
+	top: 9px;
+}
+.sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 60%; 
+}
+.category-list .sortable li {
+	list-style: none;
+	padding: 5px 10px;
+	margin: 5px;
+	border: 1px solid #ddd;	
+    background-color: #fff;
+}
+.oe-toptool {
+	float: left;
+}
+.oe-toptool .btn {
+	margin: 10px 0;
+}
+.oe-grid-container .oe-grid-toptool {
+	width: 50%;
+	float: right;
+	margin-top: 15px;
+}
+.commission-contract .oe-grid-container .oe-grid .table {
+	border-top: 0;
+}
+body > .header .logo {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.sortable li:hover {
+	cursor: move;
+}
+.sortable span,
+.sortable a {
+	text-transform: capitalize;
+} 
+.category-list ul li {
+	margin: 10px;
+}
+.category-list ul span {
+	text-transform: uppercase;
+}

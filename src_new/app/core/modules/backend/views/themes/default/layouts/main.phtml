@@ -1,0 +1,53 @@
+<?php 
+use App\Helpers\FlashMessage;
+$collapsed = $this->session->get('collapsed');
+$collapsed = $this->request->get('view-mode') == 'full' ? true : $collapsed; 
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <?php echo $this->partial($layoutDir . '/partials/head');  ?>
+        <?php echo $this->assets->outputCss(); ?>
+        <?php echo $this->assets->outputJs(); ?>
+        <script> var baseUri = '<?php echo $this->url->getBaseUri(); ?>' </script>
+    </head>
+    <body class="skin-blue sidebar-mini <?php if($collapsed) echo 'sidebar-collapse'; ?>">
+        <div class="wrapper">
+            <header class="main-header">
+                <?php echo $this->partial($layoutDir . '/partials/header'); ?>
+            </header>
+    
+            <aside class="main-sidebar <?php if($collapsed) echo 'collapse-left'; ?>">
+	            <?php echo $this->partial($layoutDir . '/partials/aside'); ?>
+            </aside>
+            
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1><?php echo $pageTitle ?></h1>
+                    <?php echo $this->partial($layoutDir . '/partials/breadcrumb'); ?>
+                </section>
+                
+                <!-- Flash message box -->
+                <section class="message-box">
+	                <?php $fm = new FlashMessage(); echo $fm->output(); ?>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                	<?php echo $this->getContent(); ?>
+				</section><!-- /.content -->
+            </div><!-- ./wrapper -->
+            
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                  <b>Version</b> 0.0.1
+                </div>
+                <strong>Copyright &copy; 2015 <a href="http://oephalconcms.ownego.com">OePhalconCms</a>.</strong> All rights reserved.
+            </footer>
+    
+            <?php echo $this->partial($layoutDir . '/partials/footer'); ?>
+        </div>
+    </body>
+</html>

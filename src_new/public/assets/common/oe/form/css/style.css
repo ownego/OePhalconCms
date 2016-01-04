@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+.oe-form {
+	padding: 5px;
+	background-color: #fff;
+    overflow: hidden;
+}
+.message-error {
+	display: block;
+	padding: 2px;
+	font-size: 13px;
+	line-height: 13px;
+	font-style: italic;
+	color: #8a6d3b;
+}
+.message-error:first-letter {
+	text-transform: uppercase;
+}
+.box-footer.form-buttons {
+	margin: 0;
+}
+.box-footer .btn {
+	margin-right: 5px;
+}
+.required {
+	color: red;
+	font-size: 1em;
+}
+.message-box {
+	padding-right: 15px;
+}
+.alert-error {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+.oe-form-group-caption {
+	padding: 10px 0;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #555;
+}
+.form-group.has-error label {
+	color: #555;
+}
